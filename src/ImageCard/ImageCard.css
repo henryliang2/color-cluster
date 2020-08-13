@@ -1,0 +1,9 @@
+* {
+  margin: 0
+}
+
+img {
+  padding: 12px;
+  display: inline-block;
+  object-fit: cover;
+}
