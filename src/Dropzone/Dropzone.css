@@ -1,0 +1,9 @@
+.dropzone-area {
+  width: 600px;
+  height: 200px;
+  background-color: #ddd;
+  text-align: center;
+  padding: 40px;
+  margin: auto;
+  margin-top: 60px;
+}
