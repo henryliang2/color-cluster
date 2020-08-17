@@ -12,9 +12,9 @@ class ImageCard extends Component {
         <Fragment>
           <img 
             src={url} 
-            alt={"image " + id} 
-            width="120" 
-            height="120" 
+            alt={"image " + id}
+            width="160" 
+            height="160" 
           />
         </Fragment>
     );

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import ImageCard from './ImageCard/ImageCard';
-import MyDropzone from './Dropzone/Dropzone';
 import './App.css';
-const DummyVariables = require('./DummyVariables.js');
-const Clarifai = require('clarifai');
-const { PCA } = require('ml-pca');
+import React, { Component } from 'react';
+import ImageCard            from './ImageCard/ImageCard';
+import MyDropzone           from './Dropzone/Dropzone';
+import imageCompression     from 'browser-image-compression';
+const Clarifai  = require('clarifai');
+const { PCA }   = require('ml-pca');
 const tinycolor = require('tinycolor2');
 
 const clarifaiApp = new Clarifai.App({
@@ -14,19 +14,22 @@ const clarifaiApp = new Clarifai.App({
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      images: []
-    }
+    this.state = { images: [] }
+  }
+  
+  compressImage = async (file, maxWidthOrHeight) => {
+    const output = await imageCompression(file, { maxWidthOrHeight: 160});
+    return output
   }
 
   pushImageToState = (id, url, primaryColor, pcaIndex) => {
     this.setState(prevState => ({
       images: [...prevState.images, {
-        id,
-        url,
-        primaryColorHex: primaryColor,
-        primaryColorHSV: tinycolor(primaryColor).toHsv(),
-        pcaIndex
+        id,                            // unique identifier
+        url,                           // url or base64 string of image
+        primaryColorHex: primaryColor, // primary color of image in hexidecimal notation
+        primaryColorHSV: tinycolor(primaryColor).toHsv(), // primary color of image in HSV notation
+        pcaIndex // principle component analysis index of HSV color (reduced to one single dimension)
       }]
     }));
   }
@@ -92,26 +95,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const setInitialState = async () => {
-      // Get Clarifai Model on initial dummy images
-      const outputs = await this.runClarifaiModel(DummyVariables.dummyColors);
-      // Get primary colors of each dummy image from Clarifai Models
-      const primaryColorArray = outputs.map( output => {
-        const sortedColors = output.data.colors.sort((a, b) => { 
-          return b.value - a.value })
-        return sortedColors[0].raw_hex
-      })
-      // push images to initial state
-      await outputs.forEach((output, i) => {
-        this.pushImageToState(
-          i,
-          output.input.data.image.url,
-          primaryColorArray[i],
-          null)
-      })
-    }
-
-    setInitialState();
   }
 
   render() {
@@ -122,6 +105,7 @@ class App extends Component {
             runClarifaiModel={this.runClarifaiModel}
             pushImageToState={this.pushImageToState}
             getPrimaryColor={this.getPrimaryColor}
+            compressImage={this.compressImage}
             getState={this.getState}
           />
         </div>

@@ -17,25 +17,27 @@ const MyDropzone = (props) => {
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
+      reader.onload = () => { // need to refactor to move logic elsewhere
         const binaryStr = reader.result;
         console.log(binaryStr);
         let base64Str = btoa(String.fromCharCode(...new Uint8Array(binaryStr)));
-        const awaitClarifai = async () => {
-          const output = await props.runClarifaiModel(base64Str);
-          await console.log(output);
-          const primaryColor = await props.getPrimaryColor(output)
+        const submitImage = async () => {
+          const clarifaiOutput = await props.runClarifaiModel(base64Str);
+          const primaryColor = await props.getPrimaryColor(clarifaiOutput)
           const currentState = await props.getState();
           await props.pushImageToState(
             currentState.images.length + 1,
-            "data:image/png;base64," + base64Str, // need to correct to accept all, also to createUrlObject
+            `data:image/png;base64, ${base64Str}`, // need to correct to accept all image types
             primaryColor,
-            null
+            null // empty PCA model until analysis button clicked
           )
         }
-        awaitClarifai();
+        submitImage();
       }
-      reader.readAsArrayBuffer(file.file)
+
+      // Compress image before loading it into state
+      props.compressImage(file.file, 160)
+      .then(output => { reader.readAsArrayBuffer(output);});
       
       file.remove()
     })
