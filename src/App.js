@@ -2,7 +2,6 @@ import './App.css';
 import React, { Component } from 'react';
 import ImageCard            from './ImageCard/ImageCard';
 import MyDropzone           from './Dropzone/Dropzone';
-import imageCompression     from 'browser-image-compression';
 const Clarifai  = require('clarifai');
 const { PCA }   = require('ml-pca');
 const tinycolor = require('tinycolor2');
@@ -15,11 +14,6 @@ class App extends Component {
   constructor(){
     super();
     this.state = { images: [] }
-  }
-  
-  compressImage = async (file, maxWidthOrHeight) => {
-    const output = await imageCompression(file, { maxWidthOrHeight: 160});
-    return output
   }
 
   pushImageToState = (id, url, primaryColor, pcaIndex) => {
@@ -42,7 +36,10 @@ class App extends Component {
 
   runPcaModel = () => {
     let dataset = [];
-
+    if (this.state.images.length < 1) {
+      console.log('Must be populated')
+      return null
+    }
     // dataset is an array of arrays of format [h, s, v]
     this.state.images.forEach( image => {
       dataset.push([
@@ -51,7 +48,6 @@ class App extends Component {
         image.primaryColorHSV.v 
       ])
     });
-
     // input into PCA model
     const pca = new PCA(dataset, {
       method: 'NIPALS',
@@ -59,14 +55,10 @@ class App extends Component {
       center: true,
       scale: true,
     });
-    
     // Project each image's HSV values into PCA space
     const pcaModel = pca.predict(dataset)
-    
     // Push results to array and sort by PCA index
-    let imageArray = { 
-      images: []
-    };
+    let imageArray = { images: [] };
     this.state.images.forEach( (image, i) => {
       imageArray.images.push({ 
         id: image.id, 
@@ -75,9 +67,10 @@ class App extends Component {
         primaryColorHSV: image.primaryColorHSV,
         pcaIndex: pcaModel.data[i][0]})
     });
-    imageArray.images.sort((a, b) => { return a.pcaIndex - b.pcaIndex });
-
-    // Replace Old State with new one
+    imageArray.images.sort((a, b) => { 
+      return a.pcaIndex - b.pcaIndex 
+    });
+    // Replace old State with new one
     this.setState(imageArray)
   }
 
@@ -87,29 +80,25 @@ class App extends Component {
   }
 
   runClarifaiModel = (urls) => {
-    // COLOR_MODEL is the model that accesses Color data for Clarifai
     const COLOR_MODEL = "eeed0b6733a644cea07cf4c60f87ebb7";
     const outputs = clarifaiApp.models.predict(COLOR_MODEL, urls)
       .then(response => { return response.outputs });
     return outputs
   }
 
-  componentDidMount() {
-  }
-
   render() {
     return (
       <React.Fragment>
-        <div>
+      <div className='container' >
+        <div className='drop-column'>
           <MyDropzone 
             runClarifaiModel={this.runClarifaiModel}
             pushImageToState={this.pushImageToState}
             getPrimaryColor={this.getPrimaryColor}
-            compressImage={this.compressImage}
             getState={this.getState}
           />
         </div>
-        <div>{
+        <div className='image-column'>{
           this.state.images.map( (image, i) => {
             return <ImageCard
                     key={i}
@@ -118,10 +107,12 @@ class App extends Component {
                   />
             })}
         </div>
-        <div>
-          <button onClick={this.runPcaModel}>Analyze</button>
-          <button onClick={this.getState}> Log State</button>
-        </div>
+      </div>
+        
+      <div>
+        <button onClick={this.runPcaModel}>Analyze</button>
+        <button onClick={this.getState}> Log State</button>
+      </div>
       </React.Fragment>
     );
   }

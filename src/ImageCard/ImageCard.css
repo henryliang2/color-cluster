@@ -3,7 +3,8 @@
 }
 
 img {
-  padding: 12px;
+  margin: 0;
+  padding: 8px;
   display: inline-block;
   object-fit: cover;
 }

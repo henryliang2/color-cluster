@@ -1,9 +1,16 @@
 import React from 'react'
 import Dropzone from 'react-dropzone-uploader'
+import imageCompression     from 'browser-image-compression';
 import 'react-dropzone-uploader/dist/styles.css'
 import './Dropzone.css'
 
 const MyDropzone = (props) => {
+
+  const compressImage = async (file, maxWidthOrHeight) => {
+    const output = await imageCompression(file, { maxWidthOrHeight });
+    return output
+  }
+
   // specify upload params and url for your files
   const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
   
@@ -18,9 +25,7 @@ const MyDropzone = (props) => {
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => { // need to refactor to move logic elsewhere
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-        let base64Str = btoa(String.fromCharCode(...new Uint8Array(binaryStr)));
+        let base64Str = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
         const submitImage = async () => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
           const primaryColor = await props.getPrimaryColor(clarifaiOutput)
@@ -36,7 +41,7 @@ const MyDropzone = (props) => {
       }
 
       // Compress image before loading it into state
-      props.compressImage(file.file, 160)
+      compressImage(file.file, 500)
       .then(output => { reader.readAsArrayBuffer(output);});
       
       file.remove()

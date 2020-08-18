@@ -30,6 +30,33 @@ body {
 
 .App-link {
   color: #61dafb;
+  border: 1px solid gray
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.drop-column {
+  min-height: 600px;
+  width: 40vw;
+  max-width: 540px;
+}
+
+.image-column {
+  min-height: 600px;
+  width: 40vw;
+  min-width: 540px;
+  overflow-x: scroll;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  flex-basis: 33.333333%;
+  align-content: flex-start;
+
 }
 
 @keyframes App-logo-spin {
