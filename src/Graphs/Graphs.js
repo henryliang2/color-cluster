@@ -35,7 +35,7 @@ class Graphs extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.state.pcaModelExists) {
+    if (this.props.state.modelExists) {
       this.drawGraph();
     }
   }
