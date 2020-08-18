@@ -2,6 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import ImageCard            from './ImageCard/ImageCard';
 import MyDropzone           from './Dropzone/Dropzone';
+import Graphs               from './Graphs/Graphs'
 const Clarifai  = require('clarifai');
 const { PCA }   = require('ml-pca');
 const tinycolor = require('tinycolor2');
@@ -13,7 +14,10 @@ const clarifaiApp = new Clarifai.App({
 class App extends Component {
   constructor(){
     super();
-    this.state = { images: [] }
+    this.state = { 
+      images: [],
+      pcaModelExists: false
+    }
   }
 
   pushImageToState = (id, url, primaryColor, pcaIndex) => {
@@ -51,27 +55,29 @@ class App extends Component {
     // input into PCA model
     const pca = new PCA(dataset, {
       method: 'NIPALS',
-      nCompNIPALS: 1,
-      center: true,
-      scale: true,
+      nCompNIPALS: 1, // reduce to one-dimensional space
     });
     // Project each image's HSV values into PCA space
     const pcaModel = pca.predict(dataset)
     // Push results to array and sort by PCA index
-    let imageArray = { images: [] };
+    let outputArray = { images: []};
+    console.log(pcaModel)
     this.state.images.forEach( (image, i) => {
-      imageArray.images.push({ 
+      outputArray.images.push({ 
         id: image.id, 
         url: image.url, 
         primaryColorHex: image.primaryColorHex,
         primaryColorHSV: image.primaryColorHSV,
         pcaIndex: pcaModel.data[i][0]})
     });
-    imageArray.images.sort((a, b) => { 
+    outputArray.images.sort((a, b) => { 
       return a.pcaIndex - b.pcaIndex 
     });
     // Replace old State with new one
-    this.setState(imageArray)
+    this.setState(outputArray)
+    this.setState(prevState => ({
+      pcaModelExists: !prevState.pcaModelExists
+    }));
   }
 
   getState = () => {
@@ -106,6 +112,9 @@ class App extends Component {
                     url={image.url}
                   />
             })}
+        </div>
+        <div id='graph-output'>
+          <Graphs state = {this.state}/>
         </div>
       </div>
         
