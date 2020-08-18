@@ -4,6 +4,7 @@ import ImageCard            from './ImageCard/ImageCard';
 import MyDropzone           from './Dropzone/Dropzone';
 import Graphs               from './Graphs/Graphs'
 const Clarifai  = require('clarifai');
+const skmeans = require('skmeans');
 const { PCA }   = require('ml-pca');
 const tinycolor = require('tinycolor2');
 
@@ -16,18 +17,18 @@ class App extends Component {
     super();
     this.state = { 
       images: [],
-      pcaModelExists: false
+      modelExists: false
     }
   }
 
-  pushImageToState = (id, url, primaryColor, pcaIndex) => {
+  pushImageToState = (id, url, primaryColor, index) => {
     this.setState(prevState => ({
       images: [...prevState.images, {
         id,                            // unique identifier
         url,                           // url or base64 string of image
         primaryColorHex: primaryColor, // primary color of image in hexidecimal notation
         primaryColorHSV: tinycolor(primaryColor).toHsv(), // primary color of image in HSV notation
-        pcaIndex // principle component analysis index of HSV color (reduced to one single dimension)
+        index // analyzed index of HSV color (reduced to one single dimension)
       }]
     }));
   }
@@ -68,15 +69,53 @@ class App extends Component {
         url: image.url, 
         primaryColorHex: image.primaryColorHex,
         primaryColorHSV: image.primaryColorHSV,
-        pcaIndex: pcaModel.data[i][0]})
+        index: pcaModel.data[i][0]})
     });
     outputArray.images.sort((a, b) => { 
-      return a.pcaIndex - b.pcaIndex 
+      return a.index - b.index 
     });
     // Replace old State with new one
     this.setState(outputArray)
     this.setState(prevState => ({
-      pcaModelExists: !prevState.pcaModelExists
+      modelExists: !prevState.modelExists
+    }));
+  }
+
+  runKMeansModel = () => {
+    let dataset = [];
+    if (this.state.images.length < 1) {
+      console.log('Must be populated')
+      return null
+    }
+    // dataset is an array of arrays of format [h, s, v]
+    this.state.images.forEach( image => {
+      dataset.push([
+        image.primaryColorHSV.h, 
+        image.primaryColorHSV.s, 
+        image.primaryColorHSV.v 
+      ])
+    });
+
+    const clusters = skmeans(dataset, 5);
+    console.log(clusters);
+
+    let outputArray = { images: []};
+    this.state.images.forEach( (image, i) => {
+      outputArray.images.push({ 
+        id: image.id, 
+        url: image.url, 
+        primaryColorHex: image.primaryColorHex,
+        primaryColorHSV: image.primaryColorHSV,
+        index: clusters.idxs[i]
+      })
+    });
+    outputArray.images.sort((a, b) => { 
+      return a.index - b.index 
+    });
+    // Replace old State with new one
+    this.setState(outputArray)
+    this.setState(prevState => ({
+      modelExists: !prevState.modelExists
     }));
   }
 
@@ -119,7 +158,8 @@ class App extends Component {
       </div>
         
       <div>
-        <button onClick={this.runPcaModel}>Analyze</button>
+        <button onClick={this.runPcaModel}>Analyze (PCA Model)</button>
+        <button onClick={this.runKMeansModel}>Analyze (K-Means Model)</button>
         <button onClick={this.getState}> Log State</button>
       </div>
       </React.Fragment>
