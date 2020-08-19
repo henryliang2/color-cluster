@@ -133,6 +133,9 @@ class App extends Component {
                 getState={this.getState}
                 onRouteChange={this.onRouteChange}
               />
+              <div className='button-list'>
+                <button onClick={this.onRouteChange}>Analysis Page</button>
+              </div>
             </div>
           </div>
         </React.Fragment>
@@ -143,7 +146,6 @@ class App extends Component {
       return (
         <React.Fragment>
           <div className='container'>
-          
             <div className='column left-column'>
               <div className='title-container'>
                 <h1>Images</h1>
@@ -172,12 +174,20 @@ class App extends Component {
               <div className= 'button-list'>
                 <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
                 <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
-                <button onClick={this.getState}> Log State</button>
+                <button onClick={this.getState}>Log State</button>
+              </div>
+              <div className='title-container'>
+                <h1>Explanation</h1>
+              </div>
+              <div>
+                <p>Principal Component Analysis (PCA) is a technique that reduces the dimensionality 
+                of data while retaining the maximum amount of information possible. In 
+                this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
+                and Brightness (V) down to a single dimension. This allows comparison and sorting of
+                the primary HSV values of images in one-dimensional space.</p>
               </div>
             </div>
           </div>
-
-          
         </React.Fragment>
       )
     }
