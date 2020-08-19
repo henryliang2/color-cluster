@@ -34,7 +34,7 @@ const MyDropzone = (props) => {
             currentState.images.length + 1,
             `data:image/png;base64, ${base64Str}`, // need to correct to accept all image types
             primaryColor,
-            null // empty PCA model until analysis button clicked
+            1, // default
           )
         }
         submitImage();

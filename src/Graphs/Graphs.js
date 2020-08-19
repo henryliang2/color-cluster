@@ -6,17 +6,41 @@ class Graphs extends Component {
     super(props)
   }
 
-  drawGraph = () => {
-    const trace1 = {
-      x: [], 
-      y: [], 
-      z: [],
-      mode: 'markers',
-      type: 'scatter3d',
-    };
+  drawGraph = (model) => {
+
+    const { numOfClusters } = this.props.state;
+
+    let traceData = [];
+
+    for (let i=0; i < numOfClusters; i++) {
+      traceData.push({
+        x: [], 
+        y: [], 
+        z: [],
+        mode: 'markers',
+        type: 'scatter3d',
+      })
+    }
+
+    // map h => x, s => y, v => z
+    this.props.state.images.forEach((image, i) => {
+      const idx = (
+        model === 'kmeans' 
+          ? image.index // multiple clusters for K-Means model
+          : 0 // single cluster for pre-analysis plot or PCA model
+      )
+
+      traceData[idx].x.push(image.primaryColorHSV.h);
+      traceData[idx].y.push(image.primaryColorHSV.s);
+      traceData[idx].z.push(image.primaryColorHSV.v);
+    })
+    
+    let title = 'Hue, Saturation, and Brightness';
+    if (model === 'pca') { title = 'Principal Component Analysis' };
+    if (model === 'kmeans') { title = 'K-Means Clustering Analysis' };
 
     const layout = {
-      title: { text: 'Principal Component Analysis' },
+      title,
       scene: {
         xaxis: { title: 'Hue' },
         yaxis: { title: 'Saturation' },
@@ -24,19 +48,12 @@ class Graphs extends Component {
       }
     }
 
-    // map h => x, s => y, v => z
-    this.props.state.images.forEach((image, i) => {
-      trace1.x.push(image.primaryColorHSV.h);
-      trace1.y.push(image.primaryColorHSV.s);
-      trace1.z.push(image.primaryColorHSV.v);
-    })
-
-    Plotly.newPlot('graph-output', [trace1], layout)
+    Plotly.newPlot('graph-output', traceData, layout)
   }
 
   componentDidUpdate() {
-    if (this.props.state.modelExists) {
-      this.drawGraph();
+    if (this.props.state.images.length) {
+      this.drawGraph(this.props.state.model);
     }
   }
 

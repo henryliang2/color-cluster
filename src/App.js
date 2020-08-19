@@ -17,7 +17,8 @@ class App extends Component {
     super();
     this.state = { 
       images: [],
-      modelExists: false
+      model: '',
+      numOfClusters: 1
     }
   }
 
@@ -39,14 +40,6 @@ class App extends Component {
     return sortedColors[0].raw_hex;
   }
 
-  runPcaModel = () => {
-    this.runModel('pca')
-  }
-
-  runKMeansModel = () => {
-    this.runModel('kmeans')
-  }
-
   runModel = (model) => {
     let dataset = [];
     if (this.state.images.length < 1) {
@@ -63,6 +56,7 @@ class App extends Component {
     });
 
     let modelOutput;
+    let numOfClusters = 1; // default to 1
 
     if (model === 'pca') {
       // input into PCA model
@@ -77,27 +71,31 @@ class App extends Component {
       
     } else if (model === 'kmeans') {
       // input into k-means model with 3 clusters
-      const clusters = skmeans(dataset, 3);
+      numOfClusters = 3;
+      const clusters = skmeans(dataset, numOfClusters);
       modelOutput = clusters;
       console.log(clusters);
     }
 
-    let outputArray = { images: []};
+    let outputArray = [];
 
     this.state.images.forEach( (image, i) => {
-      outputArray.images.push({ 
+      outputArray.push({ 
         id: image.id, 
         url: image.url, 
         primaryColorHex: image.primaryColorHex,
         primaryColorHSV: image.primaryColorHSV,
         index: (model === 'pca' ? modelOutput.data[i][0] : modelOutput.idxs[i])})
     });
-    outputArray.images.sort((a, b) => { 
+    outputArray.sort((a, b) => { 
       return a.index - b.index 
     });
     // Replace old State with new one
-    this.setState(outputArray)
-    this.setState({modelExists: true});
+    this.setState({
+      images: outputArray,
+      model,
+      numOfClusters
+    })
   }
 
   getState = () => {
@@ -134,13 +132,13 @@ class App extends Component {
             })}
         </div>
         <div id='graph-output'>
-          <Graphs state = {this.state}/>
+          <Graphs state={this.state}/>
         </div>
       </div>
         
       <div>
-        <button onClick={this.runPcaModel}>Analyze (PCA Model)</button>
-        <button onClick={this.runKMeansModel}>Analyze (K-Means Model)</button>
+        <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
+        <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
         <button onClick={this.getState}> Log State</button>
       </div>
       </React.Fragment>
