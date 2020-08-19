@@ -1,8 +1,9 @@
 import './App.css';
 import React, { Component } from 'react';
-import ImageCard            from './ImageCard/ImageCard';
+import ImageList            from './ImageList/ImageList';
 import MyDropzone           from './Dropzone/Dropzone';
 import Graphs               from './Graphs/Graphs'
+import ModelDescription          from './ModelDescription/ModelDescription'
 const Clarifai  = require('clarifai');
 const skmeans = require('skmeans');
 const { PCA }   = require('ml-pca');
@@ -123,9 +124,6 @@ class App extends Component {
         <React.Fragment>
           <div className='container' >
             <div className='drop-column'>
-              <div className='title-container'>
-                <h1>Add Images</h1>
-              </div>
               <MyDropzone 
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
@@ -146,46 +144,28 @@ class App extends Component {
       return (
         <React.Fragment>
           <div className='container'>
+
             <div className='column left-column'>
-              <div className='title-container'>
-                <h1>Images</h1>
-              </div>
-              <div className='image-container'>
-                { this.state.images.map( (image, i) => {
-                    return <ImageCard
-                            key={i}
-                            id={image.id}
-                            url={image.url}
-                          />
-                    })}
-              </div>
-              <div className='button-list'>
-                <button onClick={this.onRouteChange}>Add More Images</button>
-              </div>
+
+              <ImageList 
+                onRouteChange={this.onRouteChange}
+                state={this.state}
+                />
+
             </div>
 
             <div className='column right-column'>
-              <div className='title-container'>
-                <h1>Plot</h1>
-              </div>
-              <div id='graph-output'>
-                <Graphs state={this.state}/>
-              </div>
+
+              <Graphs state={this.state}/>
+
               <div className= 'button-list'>
                 <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
                 <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
                 <button onClick={this.getState}>Log State</button>
               </div>
-              <div className='title-container'>
-                <h1>Explanation</h1>
-              </div>
-              <div>
-                <p>Principal Component Analysis (PCA) is a technique that reduces the dimensionality 
-                of data while retaining the maximum amount of information possible. In 
-                this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
-                and Brightness (V) down to a single dimension. This allows comparison and sorting of
-                the primary HSV values of images in one-dimensional space.</p>
-              </div>
+
+              <ModelDescription model={this.state.model}/>
+
             </div>
           </div>
         </React.Fragment>

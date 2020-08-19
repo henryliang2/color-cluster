@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Plotly from 'plotly.js-dist';
+import '../App.css'
 
 class Graphs extends Component {
   constructor(props) {
@@ -51,6 +52,12 @@ class Graphs extends Component {
     Plotly.newPlot('graph-output', traceData, layout)
   }
 
+  componentDidMount() {
+    if (this.props.state.images.length) {
+      this.drawGraph(this.props.state.model);
+    }
+  }
+
   componentDidUpdate() {
     if (this.props.state.images.length) {
       this.drawGraph(this.props.state.model);
@@ -59,7 +66,12 @@ class Graphs extends Component {
 
   render() {
     return (
-      ''
+      <React.Fragment>
+        <div className='title-container'>
+          <h1>Plot</h1>
+        </div>
+        <div id='graph-output'></div>
+      </React.Fragment>
     );
   }
 }

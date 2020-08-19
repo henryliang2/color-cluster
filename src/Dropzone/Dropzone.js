@@ -2,6 +2,7 @@ import React from 'react'
 import Dropzone from 'react-dropzone-uploader'
 import imageCompression     from 'browser-image-compression';
 import 'react-dropzone-uploader/dist/styles.css'
+import '../App.css'
 import './Dropzone.css'
 
 const MyDropzone = (props) => {
@@ -48,12 +49,17 @@ const MyDropzone = (props) => {
   }
 
   return (
-    <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-      accept="image/*"
-    />
+    <React.Fragment>
+      <div className='title-container'>
+        <h1>Add Images</h1>
+      </div>
+      <Dropzone
+        getUploadParams={getUploadParams}
+        onChangeStatus={handleChangeStatus}
+        onSubmit={handleSubmit}
+        accept="image/*"
+      />
+    </React.Fragment>
   )
 }
 
