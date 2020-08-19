@@ -24,7 +24,7 @@ const MyDropzone = (props) => {
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => { // need to refactor to move logic elsewhere
+      reader.onload = () => {
         let base64Str = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
         const submitImage = async () => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
@@ -39,13 +39,12 @@ const MyDropzone = (props) => {
         }
         submitImage();
       }
-
       // Compress image before loading it into state
       compressImage(file.file, 500)
       .then(output => { reader.readAsArrayBuffer(output);});
-      
       file.remove()
     })
+    props.onRouteChange();
   }
 
   return (

@@ -18,7 +18,8 @@ class App extends Component {
     this.state = { 
       images: [],
       model: '',
-      numOfClusters: 1
+      numOfClusters: 1,
+      route: 'input'
     }
   }
 
@@ -110,39 +111,76 @@ class App extends Component {
     return outputs
   }
 
+  onRouteChange = () => {
+    this.state.route === 'input'
+      ? this.setState({ route: 'analysis' })
+      : this.setState({ route: 'input' })
+  }
+
   render() {
-    return (
-      <React.Fragment>
-      <div className='container' >
-        <div className='drop-column'>
-          <MyDropzone 
-            runClarifaiModel={this.runClarifaiModel}
-            pushImageToState={this.pushImageToState}
-            getPrimaryColor={this.getPrimaryColor}
-            getState={this.getState}
-          />
-        </div>
-        <div className='image-column'>{
-          this.state.images.map( (image, i) => {
-            return <ImageCard
-                    key={i}
-                    id={image.id}
-                    url={image.url}
-                  />
-            })}
-        </div>
-        <div id='graph-output'>
-          <Graphs state={this.state}/>
-        </div>
-      </div>
-        
-      <div>
-        <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
-        <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
-        <button onClick={this.getState}> Log State</button>
-      </div>
-      </React.Fragment>
-    );
+    if (this.state.route === 'input') {
+      return (
+        <React.Fragment>
+          <div className='container' >
+            <div className='drop-column'>
+              <div className='title-container'>
+                <h1>Add Images</h1>
+              </div>
+              <MyDropzone 
+                runClarifaiModel={this.runClarifaiModel}
+                pushImageToState={this.pushImageToState}
+                getPrimaryColor={this.getPrimaryColor}
+                getState={this.getState}
+                onRouteChange={this.onRouteChange}
+              />
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    }
+
+    else if (this.state.route === 'analysis') {
+      return (
+        <React.Fragment>
+          <div className='container'>
+          
+            <div className='column left-column'>
+              <div className='title-container'>
+                <h1>Images</h1>
+              </div>
+              <div className='image-container'>
+                { this.state.images.map( (image, i) => {
+                    return <ImageCard
+                            key={i}
+                            id={image.id}
+                            url={image.url}
+                          />
+                    })}
+              </div>
+              <div className='button-list'>
+                <button onClick={this.onRouteChange}>Add More Images</button>
+              </div>
+            </div>
+
+            <div className='column right-column'>
+              <div className='title-container'>
+                <h1>Plot</h1>
+              </div>
+              <div id='graph-output'>
+                <Graphs state={this.state}/>
+              </div>
+              <div className= 'button-list'>
+                <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
+                <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
+                <button onClick={this.getState}> Log State</button>
+              </div>
+            </div>
+          </div>
+
+          
+        </React.Fragment>
+      )
+    }
   }
 }
 

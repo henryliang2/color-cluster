@@ -1,5 +1,11 @@
-body {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Khula:wght@400;700&display=swap');
+
+h1 {
+  font-family: 'Khula', 'Helvetica', 'Arial', sans-serif;
+  font-size: 32px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #2585cf;
 }
 
 .App {
@@ -39,24 +45,39 @@ body {
   flex-wrap: wrap;
 }
 
+.title-container {
+  width: 100%;
+  padding: 32px 0 0 0;
+}
+
+.column {
+  width: 560px;
+  min-height: 600px;
+}
+
 .drop-column {
+  flex: 1;
   min-height: 600px;
   width: 40vw;
   max-width: 540px;
 }
 
-.image-column {
-  min-height: 600px;
-  width: 40vw;
-  min-width: 540px;
-  overflow-x: scroll;
-
+.left-column {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  flex-basis: 33.333333%;
-  align-content: flex-start;
+  overflow: auto;
+  max-height: 80vh;
+}
 
+.image-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.button-list {
+  width: 100%;
 }
 
 @keyframes App-logo-spin {
