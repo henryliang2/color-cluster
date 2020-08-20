@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImageCard from '../ImageCard/ImageCard';
 import Dropzone from '../Dropzone/Dropzone';
 import Popup from 'reactjs-popup';
@@ -15,9 +15,7 @@ const ImageList = (props) => {
   */
   if (expectedImages !== images.length) {
 
-    // Calculate Loading Bar
-    const fractionLoaded = (images.length / expectedImages);
-    const barWidth = Math.floor(500 * fractionLoaded);
+    const progressBar = Math.floor(500 * (images.length / expectedImages));
 
     return (
       <React.Fragment>
@@ -27,7 +25,7 @@ const ImageList = (props) => {
         <div className='image-container analyzing'>
           <h1>Analyzing</h1>
           <div className='loading-bar-container'>
-            <div className='loading-bar' style={{width: barWidth}}></div>
+            <div className='loading-bar' style={{width: progressBar}}></div>
           </div>
         </div>
       </React.Fragment>
