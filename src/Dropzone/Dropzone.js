@@ -61,6 +61,9 @@ const MyDropzone = (props) => {
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
         accept="image/*"
+        inputContent={(files, extra) => (
+          extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
+        )}
       />
     </React.Fragment>
   )

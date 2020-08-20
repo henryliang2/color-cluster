@@ -75,6 +75,10 @@ const ImageList = (props) => {
                   expectedImages={props.state.expectedImages}
                   setExpectedImages={props.setExpectedImages}
                   onRouteChange={ close }
+                  accept="image/*"
+                  inputContent={(files, extra) => (
+                    extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
+                  )}
                 />
               </React.Fragment>
             )}
