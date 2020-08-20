@@ -30,9 +30,9 @@ const ImageList = (props) => {
         >
           {close => (
             <React.Fragment>
-              <a className="close" onClick={close}>
+              <button className="close" onClick={close}>
                 &times;
-              </a>
+              </button>
               <Dropzone 
                 runClarifaiModel={props.runClarifaiModel}
                 pushImageToState={props.pushImageToState}

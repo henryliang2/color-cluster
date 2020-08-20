@@ -54,7 +54,7 @@ h1 {
 .column {
   width: 560px;
   min-height: 600px;
-  align-content: start;
+  align-content: flex-start;
 }
 
 .drop-column {
@@ -74,7 +74,7 @@ h1 {
   max-height: 80vh;
   display: flex;
   flex-wrap: wrap;
-  align-content: start;
+  align-content: flex-start;
   overflow: auto;
 }
 

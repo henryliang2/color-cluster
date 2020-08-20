@@ -25,7 +25,7 @@ const runModel = (model, state) => {
       method: 'NIPALS',
       nCompNIPALS: 1, // reduce to one-dimensional space
     });
-
+    
     // Project each image's HSV values into PCA space
     const pcaModel = pca.predict(dataset)
     modelOutput = pcaModel;
@@ -52,6 +52,7 @@ const runModel = (model, state) => {
   outputArray.sort((a, b) => { 
     return a.index - b.index 
   });
+
 
   return {
     images: outputArray,
