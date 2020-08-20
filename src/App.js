@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import ImageList            from './ImageList/ImageList';
 import MyDropzone           from './Dropzone/Dropzone';
 import Graphs               from './Graphs/Graphs'
-import ModelDescription          from './ModelDescription/ModelDescription'
+import ModelDescription     from './ModelDescription/ModelDescription'
+const Models = require('./Models/Models.js');
 const Clarifai  = require('clarifai');
-const skmeans = require('skmeans');
-const { PCA }   = require('ml-pca');
 const tinycolor = require('tinycolor2');
 
 const clarifaiApp = new Clarifai.App({
@@ -42,64 +41,6 @@ class App extends Component {
     return sortedColors[0].raw_hex;
   }
 
-  runModel = (model) => {
-    let dataset = [];
-    if (this.state.images.length < 1) {
-      console.log('Must be populated')
-      return null
-    }
-    // dataset is an array of arrays of format [h, s, v]
-    this.state.images.forEach( image => {
-      dataset.push([
-        image.primaryColorHSV.h, 
-        image.primaryColorHSV.s, 
-        image.primaryColorHSV.v 
-      ])
-    });
-
-    let modelOutput;
-    let numOfClusters = 1; // default to 1
-
-    if (model === 'pca') {
-      // input into PCA model
-      const pca = new PCA(dataset, {
-        method: 'NIPALS',
-        nCompNIPALS: 1, // reduce to one-dimensional space
-      });
-      // Project each image's HSV values into PCA space
-      const pcaModel = pca.predict(dataset)
-      modelOutput = pcaModel;
-      console.log(pcaModel)
-      
-    } else if (model === 'kmeans') {
-      // input into k-means model with 3 clusters
-      numOfClusters = 3;
-      const clusters = skmeans(dataset, numOfClusters);
-      modelOutput = clusters;
-      console.log(clusters);
-    }
-
-    let outputArray = [];
-
-    this.state.images.forEach( (image, i) => {
-      outputArray.push({ 
-        id: image.id, 
-        url: image.url, 
-        primaryColorHex: image.primaryColorHex,
-        primaryColorHSV: image.primaryColorHSV,
-        index: (model === 'pca' ? modelOutput.data[i][0] : modelOutput.idxs[i])})
-    });
-    outputArray.sort((a, b) => { 
-      return a.index - b.index 
-    });
-    // Replace old State with new one
-    this.setState({
-      images: outputArray,
-      model,
-      numOfClusters
-    })
-  }
-
   getState = () => {
     console.log(this.state)
     return this.state
@@ -119,11 +60,16 @@ class App extends Component {
   }
 
   render() {
+
+    
+    /* ----- Input Route ----- */
     if (this.state.route === 'input') {
       return (
         <React.Fragment>
           <div className='container' >
             <div className='drop-column'>
+
+              { /* ----- Dropzone Component ----- */ }
               <MyDropzone 
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
@@ -140,30 +86,40 @@ class App extends Component {
       );
     }
 
+    /* ----- Analysis Route ----- */
     else if (this.state.route === 'analysis') {
       return (
         <React.Fragment>
           <div className='container'>
-
+          
+            { /* ----- Left Column ----- */ }
             <div className='column left-column'>
-
               <ImageList 
                 onRouteChange={this.onRouteChange}
                 state={this.state}
                 />
-
             </div>
 
+            { /* ----- Right Column ----- */ }
             <div className='column right-column'>
 
+              { /* ----- Graphs Component ----- */ }
               <Graphs state={this.state}/>
 
+              { /* ----- Analysis Buttons ----- */ }
               <div className= 'button-list'>
-                <button onClick={() => { this.runModel('pca'); }}>Analyze (PCA Model)</button>
-                <button onClick={() => { this.runModel('kmeans'); }}>Analyze (K-Means Model)</button>
+                <button onClick={() => { 
+                  this.setState(Models.runModel('pca', this.state)) 
+                }}> Analyze (PCA Model) </button>
+
+                <button onClick={() => { 
+                  this.setState(Models.runModel('kmeans', this.state)) 
+                }}> Analyze (K-Means Model) </button>
+
                 <button onClick={this.getState}>Log State</button>
               </div>
 
+              { /* ----- ModelDescription Component ----- */ }
               <ModelDescription model={this.state.model}/>
 
             </div>
