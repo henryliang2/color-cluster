@@ -84,6 +84,7 @@ button:active {
   width: 560px;
   min-height: 600px;
   align-content: flex-start;
+  padding: 24px;
 }
 
 .drop-column {
@@ -100,6 +101,7 @@ button:active {
 
 .image-container {
   width: 100%;
+  min-height: 200px;
   max-height: 80vh;
   display: flex;
   flex-wrap: wrap;
@@ -111,6 +113,9 @@ button:active {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+#graph-output {
 }
 
 @keyframes App-logo-spin {

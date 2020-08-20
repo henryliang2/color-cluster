@@ -19,7 +19,8 @@ class App extends Component {
       images: [],
       model: '',
       numOfClusters: 1,
-      route: 'input'
+      route: 'input',
+      expectedImages: 0
     }
   }
 
@@ -35,15 +36,25 @@ class App extends Component {
     }));
   }
 
+  setExpectedImages = (num) => {
+    /*
+    * Adds expected images that are currently loading to existing
+    * expected images. Used for Loading Screen if images.length() 
+    * !== expectedImages 
+    */
+    this.setState(prevState => {
+    return { 
+      ...prevState, 
+      expectedImages: num 
+    }
+  })
+
+  }
+
   getPrimaryColor = (clarifaiOutput) => {
     const sortedColors = clarifaiOutput[0].data.colors.sort((a, b) => { 
       return b.value - a.value });
     return sortedColors[0].raw_hex;
-  }
-
-  getState = () => {
-    console.log(this.state)
-    return this.state
   }
 
   runClarifaiModel = (urls) => {
@@ -72,8 +83,10 @@ class App extends Component {
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
                 getPrimaryColor={this.getPrimaryColor}
-                getState={this.getState}
                 onRouteChange={this.onRouteChange}
+                expectedImages={this.state.expectedImages}
+                setExpectedImages={this.setExpectedImages}
+                state={this.state}
               />
               <div className='button-list'>
                 <button onClick={this.onRouteChange}>Analysis Page</button>
@@ -96,7 +109,7 @@ class App extends Component {
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
                 getPrimaryColor={this.getPrimaryColor}
-                getState={this.getState}
+                setExpectedImages={this.setExpectedImages}
                 onRouteChange={this.onRouteChange}
                 state={this.state}
                 />

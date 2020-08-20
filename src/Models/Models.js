@@ -29,7 +29,7 @@ const runModel = (model, state) => {
     // Project each image's HSV values into PCA space
     const pcaModel = pca.predict(dataset)
     modelOutput = pcaModel;
-    console.log(pcaModel)
+    console.log('pcaModel', pcaModel);
     
   } else if (model === 'kmeans') {
     // input into k-means model with 3 clusters

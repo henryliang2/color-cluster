@@ -21,6 +21,10 @@ const MyDropzone = (props) => {
   // receives array of files that are done uploading when submit button is clicked
   const handleSubmit = (files, allFiles) => {
     console.log(files.map(f => f.meta))
+
+    // set num of expected images to existing images + new files
+    props.setExpectedImages(props.expectedImages + allFiles.length);
+
     allFiles.forEach(file => {
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted')
@@ -30,9 +34,8 @@ const MyDropzone = (props) => {
         const submitImage = async () => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
           const primaryColor = await props.getPrimaryColor(clarifaiOutput)
-          const currentState = await props.getState();
           await props.pushImageToState(
-            currentState.images.length + 1,
+            props.state.images.length + 1,
             `data:image/png;base64, ${base64Str}`, // need to correct to accept all image types
             primaryColor,
             1, // default
