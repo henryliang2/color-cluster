@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Plotly from 'plotly.js-dist';
 import '../App.css'
 
-class Graphs extends Component {
-  constructor(props) {
-    super(props)
-  }
+const Graphs = (props) => {
 
-  drawGraph = (model) => {
+  useEffect(() => { 
+    if (props.state.images.length) {
+      drawGraph(props.state.model);
+    }
+  }, [props.state]);
 
-    const { numOfClusters } = this.props.state;
-
+  const drawGraph = (model) => {
+    const { numOfClusters } = props.state;
     let traceData = [];
 
     for (let i=0; i < numOfClusters; i++) {
@@ -24,7 +25,7 @@ class Graphs extends Component {
     }
 
     // map h => x, s => y, v => z
-    this.props.state.images.forEach((image, i) => {
+    props.state.images.forEach((image, i) => {
       const idx = (
         model === 'kmeans' 
           ? image.index // multiple clusters for K-Means model
@@ -52,28 +53,15 @@ class Graphs extends Component {
     Plotly.newPlot('graph-output', traceData, layout)
   }
 
-  componentDidMount() {
-    if (this.props.state.images.length) {
-      this.drawGraph(this.props.state.model);
-    }
-  }
+  return (
+    <React.Fragment>
+      <div className='title-container'>
+        <h1>Plot</h1>
+      </div>
+      <div id='graph-output'></div>
+    </React.Fragment>
+  );
 
-  componentDidUpdate() {
-    if (this.props.state.images.length) {
-      this.drawGraph(this.props.state.model);
-    }
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className='title-container'>
-          <h1>Plot</h1>
-        </div>
-        <div id='graph-output'></div>
-      </React.Fragment>
-    );
-  }
 }
 
 export default Graphs
