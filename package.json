@@ -16,16 +16,18 @@
     "react-dropzone-uploader": "^2.11.0",
     "react-scripts": "^3.4.3",
     "reactjs-popup": "^1.5.0",
+    "serve": "^11.3.2",
     "skmeans": "^0.11.3",
     "tinycolor2": "^1.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
-  },
+    } ,
   "eslintConfig": {
     "extends": "react-app"
   },
