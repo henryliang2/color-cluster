@@ -60,8 +60,6 @@ class App extends Component {
   }
 
   render() {
-
-    
     /* ----- Input Route ----- */
     if (this.state.route === 'input') {
       return (
@@ -95,6 +93,10 @@ class App extends Component {
             { /* ----- Left Column ----- */ }
             <div className='column left-column'>
               <ImageList 
+                runClarifaiModel={this.runClarifaiModel}
+                pushImageToState={this.pushImageToState}
+                getPrimaryColor={this.getPrimaryColor}
+                getState={this.getState}
                 onRouteChange={this.onRouteChange}
                 state={this.state}
                 />

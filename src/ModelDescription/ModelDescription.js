@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 
 const ModelDescription = (props) => {
+
   if (props.model === 'pca') {
     return (
       <React.Fragment>

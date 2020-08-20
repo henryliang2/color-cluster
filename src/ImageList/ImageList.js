@@ -1,6 +1,9 @@
 import React from 'react';
-import ImageCard from '../ImageCard/ImageCard'
+import ImageCard from '../ImageCard/ImageCard';
+import Dropzone from '../Dropzone/Dropzone';
+import Popup from 'reactjs-popup';
 import '../App.css'
+import './ImageList.css'
 
 const ImageList = (props) => {
 
@@ -19,7 +22,28 @@ const ImageList = (props) => {
             })}
       </div>
       <div className='button-list'>
-        <button onClick={props.onRouteChange}>Add More Images</button>
+        <Popup trigger={<button>Add More Images</button>} 
+          modal
+          closeOnDocumentClick
+          overlayStyle={ { width: '100%', height: '100%' }}
+          contentStyle={ { width: 600, height: 600 }}
+        >
+          {close => (
+            <React.Fragment>
+              <a className="close" onClick={close}>
+                &times;
+              </a>
+              <Dropzone 
+                runClarifaiModel={props.runClarifaiModel}
+                pushImageToState={props.pushImageToState}
+                getPrimaryColor={props.getPrimaryColor}
+                getState={props.getState}
+                onRouteChange={ close }
+              />
+            </React.Fragment>
+          )}
+        </Popup>
+      
       </div>
     </React.Fragment>
   );
