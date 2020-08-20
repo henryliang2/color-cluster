@@ -26,7 +26,7 @@ const ImageList = (props) => {
           modal
           closeOnDocumentClick
           overlayStyle={ { width: '100%', height: '100%' }}
-          contentStyle={ { width: 600, height: 600 }}
+          contentStyle={ { width: 600, height: 600 , padding: 24}}
         >
           {close => (
             <React.Fragment>

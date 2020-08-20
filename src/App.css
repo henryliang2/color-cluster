@@ -1,3 +1,5 @@
+/* Main Blue: #2585cf */
+
 @import url('https://fonts.googleapis.com/css2?family=Khula:wght@400;700&display=swap');
 
 h1 {
@@ -6,6 +8,33 @@ h1 {
   line-height: 32px;
   font-weight: 700;
   color: #2585cf;
+}
+
+button {
+  font-family: 'Khula', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+
+  background-color: #2585cf;
+  border: none;
+  border-radius: 6px;
+
+  padding: 14px 24px 10px 24px;
+  margin: 12px 12px 12px 0;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2f9bed;
+}
+
+button:active {
+  background-color: #67b2f0;
 }
 
 .App {
@@ -80,6 +109,8 @@ h1 {
 
 .button-list {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {

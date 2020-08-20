@@ -118,6 +118,10 @@ class App extends Component {
                   this.setState(Models.runModel('kmeans', this.state)) 
                 }}> Analyze (K-Means Model) </button>
 
+                
+              </div>
+
+              <div className='button-list'>
                 <button onClick={this.getState}>Log State</button>
               </div>
 
