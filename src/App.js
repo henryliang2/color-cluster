@@ -24,6 +24,10 @@ class App extends Component {
     }
   }
 
+  getState = () => {
+    console.log(this.state)
+  }
+
   pushImageToState = (id, url, primaryColor, index) => {
     this.setState(prevState => ({
       images: [...prevState.images, {
@@ -43,12 +47,11 @@ class App extends Component {
     * !== expectedImages 
     */
     this.setState(prevState => {
-    return { 
-      ...prevState, 
-      expectedImages: num 
-    }
-  })
-
+      return { 
+        ...prevState, 
+        expectedImages: num 
+      }
+    })
   }
 
   getPrimaryColor = (clarifaiOutput) => {

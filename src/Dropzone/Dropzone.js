@@ -36,7 +36,7 @@ const MyDropzone = (props) => {
           const primaryColor = await props.getPrimaryColor(clarifaiOutput)
           await props.pushImageToState(
             props.state.images.length + 1,
-            `data:image/png;base64, ${base64Str}`, // need to correct to accept all image types
+            `data:${file.file.type};base64, ${base64Str}`,
             primaryColor,
             1, // default
           )
@@ -45,7 +45,7 @@ const MyDropzone = (props) => {
       }
       // Compress image before loading it into state
       compressImage(file.file, 500)
-      .then(output => { reader.readAsArrayBuffer(output);});
+      .then(output => { reader.readAsArrayBuffer(output)});
       file.remove()
     })
     props.onRouteChange();
