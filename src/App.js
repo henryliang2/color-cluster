@@ -34,8 +34,7 @@ class Content extends Component {
       model: '',
       numOfClusters: 1,
       route: 'input',
-      expectedImages: 0,
-      highlightedImage: 0
+      expectedImages: 0
     }
   }
 
@@ -51,7 +50,6 @@ class Content extends Component {
         primaryColorHex: primaryColor, // primary color of image in hexidecimal notation
         primaryColorHSV: tinycolor(primaryColor).toHsv(), // primary color of image in HSV notation
         index, // analyzed index of HSV color (reduced to one single dimension)
-        highlight: false
       }]
     }));
   }
@@ -141,20 +139,18 @@ class Content extends Component {
               { /* ----- Graphs Component ----- */ }
               <Graphs 
                 state={this.state}
-                toggleHighlight={this.toggleHighlight}
                 />
 
               { /* ----- Analysis Buttons ----- */ }
               <div className= 'button-list'>
                 <button onClick={() => { 
                   this.setState(Models.runModel('pca', this.state)) 
-                }}> Analyze (PCA Model) </button>
-
+                  }}> Principal Component Analysis
+                </button>
                 <button onClick={() => { 
                   this.setState(Models.runModel('kmeans', this.state)) 
-                }}> Analyze (K-Means Model) </button>
-
-                
+                  }}> K-Means Clustering
+                </button>
               </div>
 
               <div className='button-list'>

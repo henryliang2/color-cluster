@@ -4,7 +4,7 @@ import './ImageCard.css'
 
 const ImageCard = (props) => {
 
-  const {url, id} = props
+  const {url, id, setHighlightedImage} = props
 
   return (
       <React.Fragment>

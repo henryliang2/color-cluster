@@ -30,10 +30,16 @@ const runModel = (model, state) => {
     const pcaModel = pca.predict(dataset)
     modelOutput = pcaModel;
     console.log('pcaModel', pcaModel);
-    
-  } else if (model === 'kmeans') {
-    // input into k-means model with 3 clusters
-    numOfClusters = 3;
+
+  } 
+  
+  else if (model === 'kmeans') {
+
+    if      (state.images.length  < 5)  { numOfClusters = 1 } 
+    else if ( state.images.length < 10) { numOfClusters = 2 } 
+    else if ( state.images.length < 17) { numOfClusters = 3 }
+    else                                { numOfClusters = 4 }      
+
     const clusters = skmeans(dataset, numOfClusters);
     modelOutput = clusters;
     console.log(clusters);
@@ -52,7 +58,6 @@ const runModel = (model, state) => {
   outputArray.sort((a, b) => { 
     return a.index - b.index 
   });
-
 
   return {
     images: outputArray,

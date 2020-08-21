@@ -23,7 +23,7 @@ const ImageList = (props) => {
           <h1>Images</h1>
         </div>
         <div className='image-container analyzing'>
-          <h1>Analyzing</h1>
+          <h1>Analyzing Colors</h1>
           <div className='loading-bar-container'>
             <div className='loading-bar' style={{width: progressBar}}></div>
           </div>

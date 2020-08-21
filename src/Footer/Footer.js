@@ -12,6 +12,7 @@ const Footer = () => {
       <p><a href="https://github.com/plotly/plotly.js/">plotly.js</a></p>
       <p><a href="https://www.npmjs.com/package/react-dropzone-uploader">react-dropzone-uploader</a></p>
       <p><a href="https://www.npmjs.com/package/browser-image-compression">browser-image-compression</a></p>
+      <p><a href="https://www.npmjs.com/package/reactjs-popup">reactjs-popup</a></p>
       <p><a href="https://www.npmjs.com/package/tinycolor2">tinycolor2</a></p>
     </footer>
   );
