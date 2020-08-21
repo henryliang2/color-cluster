@@ -17,6 +17,7 @@ const runModel = (model, state) => {
   });
 
   let modelOutput;
+  let outputArray = [];
   let numOfClusters = 1; // default to 1
 
   if (model === 'pca') {
@@ -32,6 +33,25 @@ const runModel = (model, state) => {
     console.log('pcaModel', pcaModel);
 
   } 
+
+  else if (model === 'kmeans' && state.images.length < 3) {
+
+    state.images.forEach( (image, i) => {
+      outputArray.push({ 
+        id: image.id, 
+        url: image.url, 
+        primaryColorHex: image.primaryColorHex,
+        primaryColorHSV: image.primaryColorHSV,
+      });
+    })
+
+    return {
+      images: outputArray,
+      model: 'notEnoughPoints',
+      numOfClusters: 1
+    }
+    
+  }
   
   else if (model === 'kmeans') {
 
@@ -44,8 +64,6 @@ const runModel = (model, state) => {
     modelOutput = clusters;
     console.log(clusters);
   }
-
-  let outputArray = [];
 
   state.images.forEach( (image, i) => {
     outputArray.push({ 

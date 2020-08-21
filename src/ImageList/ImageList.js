@@ -56,7 +56,7 @@ const ImageList = (props) => {
         <div className='button-list'>
 
           { /* --- Add More Images (Popup) from Button--- */}
-          <Popup trigger={<button>Add More Images</button>} 
+          <Popup trigger={<button>+ Add More Images</button>} 
             modal
             closeOnDocumentClick
             overlayStyle={ { width: '100%', height: '100%' }}

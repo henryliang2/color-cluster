@@ -9,12 +9,18 @@ import ModelDescription     from './ModelDescription/ModelDescription'
 const Models = require('./Models/Models.js')
 const Clarifai  = require('clarifai')
 const tinycolor = require('tinycolor2')
+const examples = require('./examples.json')
 
 const clarifaiApp = new Clarifai.App({
   apiKey: process.env.REACT_APP_CLARIFAI_API_KEY
 });
 
 class App extends Component {
+
+  componentDidMount() {
+    document.title = "Image Color Analyzer"
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -68,6 +74,11 @@ class Content extends Component {
     })
   }
 
+  useExampleImages = () => {
+    this.setState(examples);
+    this.onRouteChange();
+  }
+
   getPrimaryColor = (clarifaiOutput) => {
     const sortedColors = clarifaiOutput[0].data.colors.sort((a, b) => { 
       return b.value - a.value });
@@ -108,6 +119,7 @@ class Content extends Component {
               />
               <div className='button-list'>
                 <button onClick={this.onRouteChange}>Analysis Page</button>
+                <button onClick={this.useExampleImages}>Use Example Images</button>
               </div>
             </div>
           </div>

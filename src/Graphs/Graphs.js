@@ -48,6 +48,7 @@ const Graphs = (props) => {
       }
   
       Plotly.newPlot('graph-output', traceData, layout)
+      
     }
 
     if (props.state.images.length) {
