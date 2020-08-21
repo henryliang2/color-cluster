@@ -1,25 +1,22 @@
-import React, { Component , Fragment} from 'react';
+import React from 'react';
 import './ImageCard.css'
 
 
-class ImageCard extends Component {
+const ImageCard = (props) => {
 
-  render () {  
-    
-    const {url, id} = this.props
+  const {url, id} = props
 
-    return (
-        <Fragment>
-          <img 
-            src={url} 
-            alt={"image " + id}
-            width="160" 
-            height="160" 
-          />
-        </Fragment>
-    );
-  } 
+  return (
+      <React.Fragment>
+        <img 
+          src={url} 
+          alt={"image " + id}
+          width="160" 
+          height="160"
+        />
+      </React.Fragment>
+  );
+} 
 
-};
 
 export default ImageCard;

@@ -54,6 +54,8 @@ const ImageList = (props) => {
           }
         </div>
         <div className='button-list'>
+
+          { /* --- Add More Images (Popup) from Button--- */}
           <Popup trigger={<button>Add More Images</button>} 
             modal
             closeOnDocumentClick

@@ -6,6 +6,8 @@ const Graphs = (props) => {
 
   useEffect(() => { 
     
+    const modelPlot = document.getElementById('graph-output');
+
     const drawGraph = (model) => {
       const { numOfClusters } = props.state;
       let traceData = [];

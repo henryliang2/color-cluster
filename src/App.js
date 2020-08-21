@@ -1,18 +1,32 @@
-import './App.css';
-import React, { Component } from 'react';
-import ImageList            from './ImageList/ImageList';
-import MyDropzone           from './Dropzone/Dropzone';
+import './App.css'
+import React, { Component } from 'react'
+import Header               from './Header/Header'
+import Footer               from './Footer/Footer'
+import ImageList            from './ImageList/ImageList'
+import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
-const Models = require('./Models/Models.js');
-const Clarifai  = require('clarifai');
-const tinycolor = require('tinycolor2');
+const Models = require('./Models/Models.js')
+const Clarifai  = require('clarifai')
+const tinycolor = require('tinycolor2')
 
 const clarifaiApp = new Clarifai.App({
   apiKey: process.env.REACT_APP_CLARIFAI_API_KEY
 });
 
 class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Header />
+        <Content />
+        <Footer />
+      </React.Fragment>
+    )
+  }
+}
+
+class Content extends Component {
   constructor(){
     super();
     this.state = { 
@@ -20,7 +34,8 @@ class App extends Component {
       model: '',
       numOfClusters: 1,
       route: 'input',
-      expectedImages: 0
+      expectedImages: 0,
+      highlightedImage: 0
     }
   }
 
@@ -35,7 +50,8 @@ class App extends Component {
         url,                           // url or base64 string of image
         primaryColorHex: primaryColor, // primary color of image in hexidecimal notation
         primaryColorHSV: tinycolor(primaryColor).toHsv(), // primary color of image in HSV notation
-        index // analyzed index of HSV color (reduced to one single dimension)
+        index, // analyzed index of HSV color (reduced to one single dimension)
+        highlight: false
       }]
     }));
   }
@@ -74,6 +90,7 @@ class App extends Component {
   }
 
   render() {
+    
     /* ----- Input Route ----- */
     if (this.state.route === 'input') {
       return (
@@ -105,7 +122,7 @@ class App extends Component {
       return (
         <React.Fragment>
           <div className='container'>
-          
+
             { /* ----- Left Column ----- */ }
             <div className='column left-column'>
               <ImageList 
@@ -122,7 +139,10 @@ class App extends Component {
             <div className='column right-column'>
 
               { /* ----- Graphs Component ----- */ }
-              <Graphs state={this.state}/>
+              <Graphs 
+                state={this.state}
+                toggleHighlight={this.toggleHighlight}
+                />
 
               { /* ----- Analysis Buttons ----- */ }
               <div className= 'button-list'>
