@@ -18,6 +18,7 @@
     "react-flip-move": "^3.0.4",
     "react-scripts": "^3.4.3",
     "react-shuffle": "^2.1.0",
+    "react-tooltip": "^4.2.8",
     "reactjs-popup": "^1.5.0",
     "serve": "^11.3.2",
     "skmeans": "^0.11.3",

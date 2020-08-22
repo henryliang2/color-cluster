@@ -19,8 +19,8 @@ const Footer = () => {
     <footer>
       <p>Packages Used</p>
       {
-        array.map(link => {
-          return <p>
+        array.map((link, i) => {
+          return <p key={i}>
             <a href={link[0]}>
               {link[1]}
             </a>

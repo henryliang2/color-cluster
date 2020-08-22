@@ -48,7 +48,7 @@ const ImageList = (props) => {
         <FadeIn className='image-container' childTag={'span'}>
           { 
             images.map( (image, i) => {
-              return <ImageCard
+              return <ImageCard 
                       key={i}
                       id={image.id}
                       url={image.url}
