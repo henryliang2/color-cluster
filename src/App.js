@@ -99,7 +99,6 @@ class Content extends Component {
   }
 
   render() {
-    
     /* ----- Input Route ----- */
     if (this.state.route === 'input') {
       return (

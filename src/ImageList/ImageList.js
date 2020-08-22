@@ -2,8 +2,10 @@ import React from 'react';
 import ImageCard from '../ImageCard/ImageCard';
 import Dropzone from '../Dropzone/Dropzone';
 import Popup from 'reactjs-popup';
+import FadeIn from 'react-fade-in';
 import '../App.css'
 import './ImageList.css'
+
 
 const ImageList = (props) => {
 
@@ -42,7 +44,8 @@ const ImageList = (props) => {
         <div className='title-container'>
           <h1>Images</h1>
         </div>
-        <div className='image-container'>
+
+        <FadeIn className='image-container' childTag={'span'}>
           { 
             images.map( (image, i) => {
               return <ImageCard
@@ -52,9 +55,9 @@ const ImageList = (props) => {
                     />
               })
           }
-        </div>
-        <div className='button-list'>
+        </FadeIn>
 
+        <div className='button-list'>
           { /* --- Add More Images (Popup) from Button--- */}
           <Popup trigger={<button>+ Add More Images</button>} 
             modal
@@ -83,7 +86,6 @@ const ImageList = (props) => {
               </React.Fragment>
             )}
           </Popup>
-        
         </div>
       </React.Fragment>
     );

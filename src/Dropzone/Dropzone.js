@@ -24,7 +24,7 @@ const MyDropzone = (props) => {
     // set num of expected images to existing images + new files
     props.setExpectedImages(props.expectedImages + allFiles.length);
 
-    allFiles.forEach(file => {
+    allFiles.forEach((file, idx) => {
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
@@ -34,10 +34,10 @@ const MyDropzone = (props) => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
           const primaryColor = await props.getPrimaryColor(clarifaiOutput)
           await props.pushImageToState(
-            props.state.images.length + 1,
-            `data:${file.file.type};base64, ${base64Str}`,
-            primaryColor,
-            1, // default
+            idx + 1, // id
+            `data:${file.file.type};base64, ${base64Str}`, // url
+            primaryColor, // primaryColor
+            1, // index //default
           )
         }
         submitImage();

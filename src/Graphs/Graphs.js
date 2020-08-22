@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Plotly from 'plotly.js-dist';
+import FadeIn from 'react-fade-in';
 import '../App.css'
 
 const Graphs = (props) => {
@@ -16,8 +17,17 @@ const Graphs = (props) => {
           x: [], 
           y: [], 
           z: [],
+          text: [],
           mode: 'markers',
           type: 'scatter3d',
+          marker: { 
+            opacity: 0.7, 
+            line: {
+              color: 'rgb(204, 204, 204)',
+              width: 1
+            },
+          }
+          
         })
       }
   
@@ -32,6 +42,7 @@ const Graphs = (props) => {
         traceData[idx].x.push(image.primaryColorHSV.h);
         traceData[idx].y.push(image.primaryColorHSV.s);
         traceData[idx].z.push(image.primaryColorHSV.v);
+        traceData[idx].text.push(image.id);
       })
       
       let title = 'Hue, Saturation, and Brightness';
@@ -46,9 +57,24 @@ const Graphs = (props) => {
           zaxis: { title: 'Brightness' }
         }
       }
-  
-      Plotly.newPlot('graph-output', traceData, layout)
-      
+
+      Plotly.newPlot('graph-output', traceData, layout);
+
+      const modelPlot = document.getElementById('graph-output');
+
+      modelPlot.on('plotly_hover', function(data){
+        const id = `image${data.points[0].text}`; // text stores the image id 
+        const highlightImage = document.getElementById(id);
+        highlightImage.style.border = '8px solid #2585cf';
+      })
+      .on('plotly_unhover', function(data){
+        const allImages = document.querySelectorAll('img');
+        allImages.forEach(image => {
+          image.style.border = '8px solid white';
+          image.onmouseover = () => { image.style.border = '8px solid #2585cf' }
+          image.onmouseout = () => { image.style.border = '8px solid white' }
+        })
+      })
     }
 
     if (props.state.images.length) {
@@ -61,7 +87,9 @@ const Graphs = (props) => {
       <div className='title-container'>
         <h1>Plot</h1>
       </div>
-      <div id='graph-output'></div>
+      <FadeIn wrapperTag={'span'}>
+        <div id='graph-output'></div>
+      </FadeIn>
     </React.Fragment>
   );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import FadeIn from 'react-fade-in';
 import '../App.css';
 
 const ModelDescription = (props) => {
@@ -9,13 +10,13 @@ const ModelDescription = (props) => {
         <div className='title-container'>
           <h1>Description</h1>
         </div>
-        <div>
+        <FadeIn>
           <p>Principal Component Analysis (PCA) is a technique that reduces the dimensionality 
             of data while retaining the maximum amount of information possible. In 
             this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
             and Brightness (V) down to a single dimension. This allows comparison and sorting of
             the primary HSV values of images in one-dimensional space.</p>
-        </div>
+        </FadeIn>
       </React.Fragment>
     );
   }
@@ -26,9 +27,9 @@ const ModelDescription = (props) => {
         <div className='title-container'>
           <h1>Description</h1>
         </div>
-        <div>
+        <FadeIn>
           <p>K-Means Clustering (Description)</p>
-        </div>
+        </FadeIn>
       </React.Fragment>
     );
   }

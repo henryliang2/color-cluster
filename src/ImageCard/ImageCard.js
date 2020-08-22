@@ -10,6 +10,7 @@ const ImageCard = (props) => {
       <React.Fragment>
         <img 
           src={url} 
+          id={"image" + id}
           alt={"image " + id}
           width="160" 
           height="160"

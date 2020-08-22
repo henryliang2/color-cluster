@@ -55,9 +55,9 @@ const runModel = (model, state) => {
   
   else if (model === 'kmeans') {
 
-    if      (state.images.length  < 5)  { numOfClusters = 1 } 
-    else if ( state.images.length < 10) { numOfClusters = 2 } 
-    else if ( state.images.length < 17) { numOfClusters = 3 }
+    if      (state.images.length  < 4)  { numOfClusters = 1 } 
+    else if ( state.images.length < 9)  { numOfClusters = 2 } 
+    else if ( state.images.length < 16) { numOfClusters = 3 }
     else                                { numOfClusters = 4 }      
 
     const clusters = skmeans(dataset, numOfClusters);

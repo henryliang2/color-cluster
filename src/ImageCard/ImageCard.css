@@ -4,7 +4,8 @@
 
 img {
   margin: 0;
-  padding: 8px;
+  padding: 0;
+  border: 8px solid white;
   display: inline-block;
   object-fit: cover;
 }
