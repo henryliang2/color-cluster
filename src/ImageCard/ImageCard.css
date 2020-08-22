@@ -14,3 +14,16 @@ img:hover {
   border: 8px solid #2585cf;
   padding: 0px /* 8px - border width */
 }
+
+.tooltip {
+  overflow: visible;
+  height: 72px
+}
+
+.color-block {
+  position: absolute;
+  display: inline-block;
+  margin: 6px;
+  width: 36px;
+  height: 72px;
+}

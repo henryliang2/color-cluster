@@ -7,6 +7,12 @@ import './Dropzone.css'
 
 const MyDropzone = (props) => {
 
+  const getPrimaryColor = (clarifaiOutput) => {
+    const sortedColors = clarifaiOutput[0].data.colors.sort((a, b) => { 
+      return b.value - a.value });
+    return sortedColors[0].raw_hex;
+  }
+
   const compressImage = async (file, maxWidthOrHeight) => {
     const output = await imageCompression(file, { maxWidthOrHeight });
     return output
@@ -32,7 +38,7 @@ const MyDropzone = (props) => {
         let base64Str = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
         const submitImage = async () => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
-          const primaryColor = await props.getPrimaryColor(clarifaiOutput)
+          const primaryColor = await getPrimaryColor(clarifaiOutput)
           await props.pushImageToState(
             idx + 1, // id
             `data:${file.file.type};base64, ${base64Str}`, // url

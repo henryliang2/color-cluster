@@ -90,12 +90,6 @@ class Content extends Component {
     this.onRouteChange();
   }
 
-  getPrimaryColor = (clarifaiOutput) => {
-    const sortedColors = clarifaiOutput[0].data.colors.sort((a, b) => { 
-      return b.value - a.value });
-    return sortedColors[0].raw_hex;
-  }
-
   runClarifaiModel = (urls) => {
     const COLOR_MODEL = "eeed0b6733a644cea07cf4c60f87ebb7";
     const outputs = clarifaiApp.models.predict(COLOR_MODEL, urls)

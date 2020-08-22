@@ -1,5 +1,6 @@
 import React from 'react';
-import './ImageCard.css'
+import './ImageCard.css';
+import ReactTooltip from 'react-tooltip';
 
 
 const ImageCard = (props) => {

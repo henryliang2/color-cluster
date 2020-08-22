@@ -42,21 +42,25 @@ const ImageList = (props) => {
     return (
       <React.Fragment>
         <div className='title-container'>
+
+          {/* ----- Images ----- */}
           <h1>Images</h1>
         </div>
 
         <FadeIn className='image-container' childTag={'span'}>
           { 
             images.map( (image, i) => {
-              return <ImageCard 
+              return <React.Fragment> 
+                    <ImageCard 
                       key={i}
                       id={image.id}
                       url={image.url}
                     />
+                  </React.Fragment>
               })
           }
         </FadeIn>
-
+        
         <div className='button-list'>
           
           {/* ----- Start Over ----- */}

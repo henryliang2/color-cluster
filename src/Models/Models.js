@@ -41,6 +41,7 @@ const runModel = (model, state) => {
       outputArray.push({ 
         id: image.id, 
         url: image.url, 
+        colors: image.colors,
         primaryColorHex: image.primaryColorHex,
         primaryColorHSV: image.primaryColorHSV,
       });
@@ -72,6 +73,7 @@ const runModel = (model, state) => {
       url: image.url, 
       primaryColorHex: image.primaryColorHex,
       primaryColorHSV: image.primaryColorHSV,
+      colors: image.colors,
       index: (model === 'pca' 
         ? modelOutput.data[i][0] // PCA Model index
         : modelOutput.idxs[i]) // K-Means Cluster index

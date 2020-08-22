@@ -23,6 +23,7 @@ const Graphs = (props) => {
           mode: 'markers',
           type: 'scatter3d',
           marker: { 
+            color: '',
             opacity: 0.7, 
             line: {
               color: 'rgb(204, 204, 204)',
@@ -40,12 +41,26 @@ const Graphs = (props) => {
             ? image.index // using the respective cluster for K-Means model
             : 0 // single cluster for pre-analysis plot or PCA model
         )
-  
-        traceData[idx].x.push(image.primaryColorHSV.h);
-        traceData[idx].y.push(image.primaryColorHSV.s);
-        traceData[idx].z.push(image.primaryColorHSV.v);
+        const { h, s, v } = image.primaryColorHSV;
+        traceData[idx].x.push(h);
+        traceData[idx].y.push(s);
+        traceData[idx].z.push(v);
         traceData[idx].text.push(image.id);
       })
+
+      const traceColors = [
+        'rgb(57, 201, 237)',
+        'rgb(59, 217, 77)',
+        'rgb(250, 171, 12)',
+        'rgb(237, 45, 224)'
+      ]
+
+      traceData.forEach((trace, i) => {
+        trace.marker.color = traceColors[i];
+        trace.name = `Cluster ${i + 1}`
+      })
+
+      if (model === 'pca') { traceData[0].marker.color = traceColors[3] };
       
       let title = 'Hue, Saturation, and Brightness';
       if (model === 'pca') { title = 'Principal Component Analysis' };
@@ -71,8 +86,9 @@ const Graphs = (props) => {
       */
       modelPlot.on('plotly_hover', function(data){
         const id = `image${data.points[0].text}`; // text stores the image id 
+        const curveNumber = (model === 'pca' ? 3 : data.points[0].curveNumber);
         const highlightImage = document.getElementById(id);
-        highlightImage.style.border = '8px solid #2585cf';
+        highlightImage.style.border = `8px solid ${traceColors[curveNumber]}`;
       })
       .on('plotly_unhover', function(data){
         const allImages = document.querySelectorAll('img');
