@@ -6,6 +6,7 @@ import ImageList            from './ImageList/ImageList'
 import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
+import ReactTooltip         from 'react-tooltip';
 const Models = require('./Models/Models.js')
 const Clarifai  = require('clarifai')
 const tinycolor = require('tinycolor2')
@@ -166,15 +167,28 @@ class Content extends Component {
                 />
 
               { /* ----- Analysis Buttons ----- */ }
-              <div className= 'button-list'>
-                <button onClick={() => { 
-                  this.setState(Models.runModel('pca', this.state)) 
-                  }}> Principal Component Analysis
-                </button>
+              <ReactTooltip place="top" type="dark" effect="solid">
+                Add more images for<br />a more meaningful analysis!
+              </ReactTooltip>
+              <div className='button-list'>
                 <button 
-                onClick={() => { 
-                  this.setState(Models.runModel('kmeans', this.state)) 
-                  }}> K-Means Clustering
+                  onClick={() => { 
+                    this.setState(Models.runModel('pca', this.state)) 
+                  }}
+                  data-tip='React-tooltip'
+                  data-tip-disable={this.state.images.length > 4 && true
+                  }> 
+                    Principal Component Analysis
+                </button>
+                
+                <button 
+                  onClick={() => { 
+                    this.setState(Models.runModel('kmeans', this.state)) 
+                  }}
+                  data-tip='React-tooltip'
+                  data-tip-disable={this.state.images.length > 4 && true
+                  }> 
+                    K-Means Clustering
                 </button>
               </div>
 
