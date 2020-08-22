@@ -44,6 +44,16 @@ class Content extends Component {
     }
   }
 
+  resetState = () => {
+    this.setState({ 
+      images: [],
+      model: '',
+      numOfClusters: 1,
+      route: 'input',
+      expectedImages: 0
+    })
+  }
+  
   getState = () => {
     console.log(this.state)
   }
@@ -134,12 +144,15 @@ class Content extends Component {
 
             { /* ----- Left Column ----- */ }
             <div className='column left-column'>
+
+              { /* ----- ImageList Componenet ----- */}
               <ImageList 
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
                 getPrimaryColor={this.getPrimaryColor}
                 setExpectedImages={this.setExpectedImages}
                 onRouteChange={this.onRouteChange}
+                resetState={this.resetState}
                 state={this.state}
                 />
             </div>
@@ -158,7 +171,8 @@ class Content extends Component {
                   this.setState(Models.runModel('pca', this.state)) 
                   }}> Principal Component Analysis
                 </button>
-                <button onClick={() => { 
+                <button 
+                onClick={() => { 
                   this.setState(Models.runModel('kmeans', this.state)) 
                   }}> K-Means Clustering
                 </button>

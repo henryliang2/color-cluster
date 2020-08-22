@@ -3,18 +3,30 @@ import './Footer.css'
 
 const Footer = () => {
   
+  const array = [
+    ['https://www.clarifai.com/', 'clarifai API'],
+    ['https://www.npmjs.com/package/skmeans', 'skmeans'],
+    ['https://github.com/mljs/pca', 'ml-js/pca'],
+    ['https://github.com/plotly/plotly.js/', 'plotly.js'],
+    ['https://www.npmjs.com/package/react-dropzone-uploader', 'react-dropzone-uploader'],
+    ['https://www.npmjs.com/package/browser-image-compression', 'browser-image-compression'],
+    ['https://www.npmjs.com/package/reactjs-popup', 'reactjs-popup'],
+    ['https://www.npmjs.com/package/react-fade-in', 'react-fade-in'],
+    ['https://www.npmjs.com/package/tinycolor2', 'tinycolor2'],
+  ]
+
   return (
     <footer>
       <p>Packages Used</p>
-      <p><a href="https://www.clarifai.com/">clarifai API</a></p>
-      <p><a href="https://www.npmjs.com/package/skmeans">skmeans</a></p>
-      <p><a href="https://github.com/mljs/pca">mljs/pca</a></p>
-      <p><a href="https://github.com/plotly/plotly.js/">plotly.js</a></p>
-      <p><a href="https://www.npmjs.com/package/react-dropzone-uploader">react-dropzone-uploader</a></p>
-      <p><a href="https://www.npmjs.com/package/browser-image-compression">browser-image-compression</a></p>
-      <p><a href="https://www.npmjs.com/package/reactjs-popup">reactjs-popup</a></p>
-      <p><a href="https://www.npmjs.com/package/react-fade-in">react-fade-in</a></p>
-      <p><a href="https://www.npmjs.com/package/tinycolor2">tinycolor2</a></p>
+      {
+        array.map(link => {
+          return <p>
+            <a href={link[0]}>
+              {link[1]}
+            </a>
+          </p>
+        })
+      }
     </footer>
   );
 }

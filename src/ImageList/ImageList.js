@@ -58,6 +58,10 @@ const ImageList = (props) => {
         </FadeIn>
 
         <div className='button-list'>
+          
+          {/* ----- Start Over ----- */}
+          <button onClick={props.resetState}>&#8592; Start Over</button>
+
           { /* --- Add More Images (Popup) from Button--- */}
           <Popup trigger={<button>+ Add More Images</button>} 
             modal

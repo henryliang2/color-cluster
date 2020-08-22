@@ -9,6 +9,8 @@ const Graphs = (props) => {
 
     const drawGraph = (model) => {
 
+      // Create an array within traceData for every cluster
+      // each array contains the x, y, and z values
       const { numOfClusters } = props.state;
       let traceData = [];
   
@@ -31,11 +33,11 @@ const Graphs = (props) => {
         })
       }
   
-      // map h => x, s => y, v => z
+      // map h => x, s => y, v => z, then input into traceData
       props.state.images.forEach((image, i) => {
         const idx = (
           model === 'kmeans' 
-            ? image.index // multiple clusters for K-Means model
+            ? image.index // using the respective cluster for K-Means model
             : 0 // single cluster for pre-analysis plot or PCA model
         )
   
@@ -47,7 +49,7 @@ const Graphs = (props) => {
       
       let title = 'Hue, Saturation, and Brightness';
       if (model === 'pca') { title = 'Principal Component Analysis' };
-      if (model === 'kmeans') { title = 'K-Means Clustering Analysis' };
+      if (model === 'kmeans') { title = 'K-Means Clustering Algorithm' };
   
       const layout = {
         title,
@@ -58,10 +60,15 @@ const Graphs = (props) => {
         }
       }
 
-      Plotly.newPlot('graph-output', traceData, layout);
+      Plotly.react('graph-output', traceData, layout, { displayModeBar: false });
 
       const modelPlot = document.getElementById('graph-output');
 
+      /*
+      * ---- Sets effect where hovering over a plot point highlights
+      * ---- the respective image within ImageList componenet. The
+      * ---- data.points[0].text entry stores the image id.
+      */
       modelPlot.on('plotly_hover', function(data){
         const id = `image${data.points[0].text}`; // text stores the image id 
         const highlightImage = document.getElementById(id);

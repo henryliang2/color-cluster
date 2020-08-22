@@ -20,20 +20,21 @@ const runModel = (model, state) => {
   let outputArray = [];
   let numOfClusters = 1; // default to 1
 
+  // Run PCA model
   if (model === 'pca') {
-    // Input into PCA model
     const pca = new PCA(dataset, {
       method: 'NIPALS',
       nCompNIPALS: 1, // reduce to one-dimensional space
     });
     
-    // Project each image's HSV values into PCA space
+    // Project each image's existing HSV values into PCA space
     const pcaModel = pca.predict(dataset)
     modelOutput = pcaModel;
     console.log('pcaModel', pcaModel);
 
   } 
 
+  // K-Means Model but with not enough images
   else if (model === 'kmeans' && state.images.length < 3) {
 
     state.images.forEach( (image, i) => {
@@ -53,6 +54,7 @@ const runModel = (model, state) => {
     
   }
   
+  // Run K-Means Model
   else if (model === 'kmeans') {
 
     if      (state.images.length  < 4)  { numOfClusters = 1 } 
@@ -62,7 +64,6 @@ const runModel = (model, state) => {
 
     const clusters = skmeans(dataset, numOfClusters);
     modelOutput = clusters;
-    console.log(clusters);
   }
 
   state.images.forEach( (image, i) => {
@@ -71,7 +72,10 @@ const runModel = (model, state) => {
       url: image.url, 
       primaryColorHex: image.primaryColorHex,
       primaryColorHSV: image.primaryColorHSV,
-      index: (model === 'pca' ? modelOutput.data[i][0] : modelOutput.idxs[i])})
+      index: (model === 'pca' 
+        ? modelOutput.data[i][0] // PCA Model index
+        : modelOutput.idxs[i]) // K-Means Cluster index
+      })
   });
   outputArray.sort((a, b) => { 
     return a.index - b.index 
