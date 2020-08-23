@@ -18,7 +18,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <p>Packages Used</p>
+      <p className='footer-title'>Packages Used</p>
       {
         array.map((link, i) => {
           return <p key={i}>

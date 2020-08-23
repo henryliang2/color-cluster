@@ -2,7 +2,7 @@ import React from 'react';
 import FadeIn from 'react-fade-in'
 import ImageCard from '../ImageCard/ImageCard'
 import Graphs from '../Graphs/Graphs'
-import './Welcome.css'
+import './Demonstration.css'
 import '../App.css'
 const demoImages = require('./demoimages.json')
 

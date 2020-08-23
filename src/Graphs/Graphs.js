@@ -19,10 +19,11 @@ const Graphs = (props) => {
         z: [],
         text: [],
         mode: 'markers',
-        type: 'scatter3d',
+        type: '',
         marker: { 
           color: '',
-          opacity: 0.7, 
+          opacity: 0.7,
+          size: 18, 
           line: {
             color: 'rgb(204, 204, 204)',
             width: 1
@@ -39,11 +40,20 @@ const Graphs = (props) => {
           ? image.index // using the respective cluster for K-Means model
           : 0 // single cluster for pre-analysis plot or PCA model
       )
-      const { h, s, v } = image.primaryColorHSV;
-      traceData[idx].x.push(h);
-      traceData[idx].y.push(s);
-      traceData[idx].z.push(v);
-      traceData[idx].text.push(image.id);
+      if (model === 'pca') { // one-axis plot for pca model
+        traceData[0].type = 'scatter';
+        traceData[0].x.push(image.index)
+        traceData[0].y.push(0)
+        traceData[0].text.push(image.id);
+        delete traceData[0].z;
+      } else { 
+        const { h, s, v } = image.primaryColorHSV;
+        traceData[idx].type = 'scatter3d';
+        traceData[idx].x.push(h);
+        traceData[idx].y.push(s);
+        traceData[idx].z.push(v);
+        traceData[idx].text.push(image.id);
+      }
     })
 
     const traceColors = [
@@ -57,8 +67,6 @@ const Graphs = (props) => {
       trace.marker.color = traceColors[i];
       trace.name = `Cluster ${i + 1}`
     })
-
-    if (model === 'pca') { traceData[0].marker.color = traceColors[3] };
     
     let title = 'Hue, Saturation, and Brightness';
     if (model === 'pca') { title = 'Principal Component Analysis' };
@@ -71,14 +79,11 @@ const Graphs = (props) => {
         yaxis: { title: 'Saturation' },
         zaxis: { title: 'Brightness' }
       },
-      margin: {
-        l:36,
-        r:36,
-        t:36,
-        b:36
-      },
+      margin: { l:36, r:36, t:36, b:36 },
       width: props.width,
-      height: props.height
+      height: (model === 'pca')
+        ? 240
+        : props.height
     }
 
     Plotly.react('graph-output', traceData, layout, { displayModeBar: false });
@@ -92,7 +97,7 @@ const Graphs = (props) => {
     */
     modelPlot.on('plotly_hover', function(data){
       const id = `image${data.points[0].text}`; // text stores the image id 
-      const curveNumber = (model === 'pca' ? 3 : data.points[0].curveNumber);
+      const curveNumber = data.points[0].curveNumber;
       const highlightImage = document.getElementById(id);
       if (highlightImage) {
         highlightImage.style.border = `8px solid ${traceColors[curveNumber]}`;

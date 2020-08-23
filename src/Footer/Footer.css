@@ -10,7 +10,7 @@ p {
   color: #555;
 }
 
-p:first-of-type {
+.footer-title {
   font-weight: 500;
   margin-bottom: 6px;
 }

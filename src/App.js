@@ -6,7 +6,7 @@ import ImageList            from './ImageList/ImageList'
 import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
-import Welcome              from './Welcome/Welcome'
+import Demonstration              from './Demonstration/Demonstration'
 import ReactTooltip         from 'react-tooltip';
 const Models = require('./Models/Models.js')
 const Clarifai  = require('clarifai')
@@ -113,15 +113,20 @@ class Content extends Component {
         <React.Fragment>
           <div className='container' >
 
-            <div className='welcome-text'>
-              <h3>This app extracts the primary colors of your image gallery <br/>
-              and arranges them using machine-learning techniques.</h3>
+            <div className='welcome-text-container'>
+              <p className='welcome-text'>
+                <h2>This app extracts the primary colors of your image gallery
+                and arranges them using machine-learning techniques.</h2>
+              </p>
+            </div>
+
+            <div className='button-list'>
               <button onClick={this.useExampleImages}>Show me an example!</button>
             </div>
 
             <div className='column left-column'>
-              { /* ----- Welcome Component ----- */ }
-              <Welcome useExampleImages={this.useExampleImages}/>
+              { /* ----- Demo Component ----- */ }
+              <Demonstration useExampleImages={this.useExampleImages}/>
             </div>
         
             <div className='column right-column'>
@@ -181,7 +186,7 @@ class Content extends Component {
               <Graphs 
                 state={this.state}
                 width='560'
-                height='500'
+                height='420'
                 returnGraphsOnly={false}
                 />
 
