@@ -23,7 +23,7 @@ const ModelDescription = (props) => {
       (the "mean"). This is accomplished by initializing the centroids, grouping
       the data points based on those centroids, and then cyclically re-assigning centroids
       based on the current clusters. Because of the semi-random way the clusters are 
-      initialized, you might get a different result each time you run the algorithm!`
+      initialized, you may get a different result each time you run the algorithm!`
 
     return (
       <React.Fragment>
