@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 
 const ImageCard = (props) => {
 
-  const { url, id } = props
+  const { url, id, dimension } = props
 
   return (
       <React.Fragment>
@@ -13,8 +13,8 @@ const ImageCard = (props) => {
           src={url} 
           id={"image" + id}
           alt={"image " + id}
-          width="160" 
-          height="160"
+          width={dimension}
+          height={dimension}
         />
       </React.Fragment>
   );

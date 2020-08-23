@@ -6,6 +6,7 @@ import ImageList            from './ImageList/ImageList'
 import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
+import Welcome              from './Welcome/Welcome'
 import ReactTooltip         from 'react-tooltip';
 const Models = require('./Models/Models.js')
 const Clarifai  = require('clarifai')
@@ -17,10 +18,6 @@ const clarifaiApp = new Clarifai.App({
 });
 
 class App extends Component {
-
-  componentDidMount() {
-    document.title = "Image Color Analyzer"
-  }
 
   render() {
     return (
@@ -109,7 +106,19 @@ class Content extends Component {
       return (
         <React.Fragment>
           <div className='container' >
-            <div className='drop-column'>
+
+            <div className='welcome-text'>
+              <h3>This app extracts the primary colors of your image gallery <br/>
+              and arranges them using machine-learning techniques.</h3>
+              <button onClick={this.useExampleImages}>Show me an example!</button>
+            </div>
+
+            <div className='column left-column'>
+              { /* ----- Welcome Component ----- */ }
+              <Welcome useExampleImages={this.useExampleImages}/>
+            </div>
+        
+            <div className='column right-column'>
 
               { /* ----- Dropzone Component ----- */ }
               <MyDropzone 
@@ -121,10 +130,12 @@ class Content extends Component {
                 setExpectedImages={this.setExpectedImages}
                 state={this.state}
               />
+              {/* 
               <div className='button-list'>
                 <button onClick={this.onRouteChange}>Analysis Page</button>
-                <button onClick={this.useExampleImages}>Use Example Images</button>
               </div>
+              */}
+
             </div>
           </div>
         </React.Fragment>
@@ -158,6 +169,9 @@ class Content extends Component {
               { /* ----- Graphs Component ----- */ }
               <Graphs 
                 state={this.state}
+                width='560'
+                height='500'
+                returnGraphsOnly={false}
                 />
 
               { /* ----- Analysis Buttons ----- */ }
@@ -186,9 +200,11 @@ class Content extends Component {
                 </button>
               </div>
 
+              {/* 
               <div className='button-list'>
                 <button onClick={this.getState}>Log State</button>
               </div>
+              */}
 
               { /* ----- ModelDescription Component ----- */ }
               <ModelDescription model={this.state.model}/>

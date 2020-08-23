@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import '../App.css';
 import './Header.css';
 
-export default class Header extends Component {
-  render() {
-     return (
-        <header>
-           <h1>Image Color Analyzer</h1>
-        </header>
-     );
-  }
+const Header = () => {
+
+   useEffect(() => {
+      document.title = "Image-Color-Analyzer"
+   })
+
+   return (
+      <header>
+         <h1>Image-Color-Analyzer</h1>
+      </header>
+   );
 }
+
+export default Header

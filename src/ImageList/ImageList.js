@@ -55,6 +55,7 @@ const ImageList = (props) => {
                       key={i}
                       id={image.id}
                       url={image.url}
+                      dimension='160'
                     />
                   </React.Fragment>
               })

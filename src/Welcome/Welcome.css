@@ -1,0 +1,12 @@
+.welcome-image-container {
+  display: inline-block;
+  width: 140px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.graph-output {
+  display: inline-block;
+  width: 300px;
+}
