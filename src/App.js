@@ -57,6 +57,9 @@ class Content extends Component {
   }
 
   pushImageToState = (id, url, primaryColor, index) => {
+    if (this.state.images.length >= 30) {
+      return null
+    }
     this.setState(prevState => ({
       images: [...prevState.images, {
         id,                            // unique identifier
@@ -66,6 +69,7 @@ class Content extends Component {
         index, // analyzed index of HSV color (reduced to one single dimension)
       }]
     }));
+    
   }
 
   setExpectedImages = (num) => {
@@ -74,10 +78,12 @@ class Content extends Component {
     * expected images. Used for Loading Screen if images.length() 
     * !== expectedImages 
     */
+    let expectedImages = (num >= 30 ? 30 : num)
+
     this.setState(prevState => {
       return { 
         ...prevState, 
-        expectedImages: num 
+        expectedImages
       }
     })
   }
@@ -129,6 +135,11 @@ class Content extends Component {
                 expectedImages={this.state.expectedImages}
                 setExpectedImages={this.setExpectedImages}
                 state={this.state}
+                accept="image/*"
+                maxFiles={30}
+                inputContent={(files, extra) => (
+                  extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
+                )}
               />
               {/* 
               <div className='button-list'>

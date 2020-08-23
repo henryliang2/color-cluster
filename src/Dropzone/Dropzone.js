@@ -37,6 +37,9 @@ const MyDropzone = (props) => {
       reader.onload = () => {
         let base64Str = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
         const submitImage = async () => {
+          if (props.state.images.length >= 30) {
+            return null 
+           }
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
           const primaryColor = await getPrimaryColor(clarifaiOutput)
           await props.pushImageToState(
