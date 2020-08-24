@@ -5,8 +5,6 @@ import './ModelDescription.css'
 
 const ModelDescription = (props) => {
 
-  console.log(props.model)
-
   if (props.model !==  'pca' && props.model !== 'kmeans') {
     return ''
   } else {

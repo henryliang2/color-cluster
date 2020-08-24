@@ -6,6 +6,12 @@
 /* Roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
+a {
+  text-decoration: none;
+  border: 0;
+  color: inherit;
+}
+
 h1 {
   font-family: 'Khula', 'Helvetica', 'Arial', sans-serif;
   font-size: 32px;

@@ -28,14 +28,26 @@ const MyDropzone = (props) => {
   const handleSubmit = (files, allFiles) => {
 
     // set num of expected images to existing images + new files
-    props.setExpectedImages(props.expectedImages + allFiles.length);
+    let expectedImages = props.expectedImages + allFiles.length
+    props.setExpectedImages(expectedImages);
 
     allFiles.forEach((file, idx) => {
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
-        let base64Str = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
+        
+        let arrayString = '';
+        try {
+          arrayString = String.fromCharCode(...new Uint8Array(reader.result))
+        } catch(err) {
+          console.log(err);
+          expectedImages -= 1;
+          props.setExpectedImages(expectedImages)
+          return null
+        }
+        
+        let base64Str = btoa(arrayString);
         const submitImage = async () => {
           if (props.state.images.length >= 30) {
             return null 

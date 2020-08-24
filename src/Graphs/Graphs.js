@@ -117,7 +117,7 @@ const Graphs = (props) => {
     if (props.state.images.length) {
       drawGraph(props.state.model);
     }
-  }, [props.state]);
+  }, [props.state, drawGraph]);
 
   if (props.returnGraphOnly) {
     return <div id='graph-output'></div>

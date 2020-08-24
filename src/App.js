@@ -51,10 +51,6 @@ class Content extends Component {
       expectedImages: 0
     })
   }
-  
-  getState = () => {
-    console.log(this.state)
-  }
 
   pushImageToState = (id, url, primaryColor, index) => {
     if (this.state.images.length >= 30) {
@@ -69,7 +65,6 @@ class Content extends Component {
         index, // analyzed index of HSV color (reduced to one single dimension)
       }]
     }));
-    
   }
 
   setExpectedImages = (num) => {
@@ -114,10 +109,8 @@ class Content extends Component {
           <div className='container' >
 
             <div className='welcome-text-container'>
-              <p className='welcome-text'>
-                <h2>This app extracts the primary colors of your image gallery
-                and arranges them using machine-learning techniques.</h2>
-              </p>
+              <h2 className='welcome-text'>This app extracts the primary colors of your image gallery
+              and arranges them using machine-learning techniques.</h2>
             </div>
 
             <div className='button-list'>

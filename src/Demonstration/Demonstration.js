@@ -1,5 +1,4 @@
-import React from 'react';
-import FadeIn from 'react-fade-in'
+import React from 'react'
 import ImageCard from '../ImageCard/ImageCard'
 import Graphs from '../Graphs/Graphs'
 import './Demonstration.css'
