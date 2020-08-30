@@ -74,7 +74,7 @@ const MyDropzone = (props) => {
   return (
     <React.Fragment>
       <div className='title-container'>
-        <h1>Add Images</h1>
+        <h1>Upload Images</h1>
       </div>
       <Dropzone
         getUploadParams={getUploadParams}
@@ -84,6 +84,14 @@ const MyDropzone = (props) => {
         inputContent={(files, extra) => (
           extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
         )}
+        maxFiles={30}
+        minSize={0}
+        maxSize={1048576}
+        styles={{
+          inputLabel: {
+            color: '#c94b4b'
+          }
+        }}
       />
     </React.Fragment>
   )

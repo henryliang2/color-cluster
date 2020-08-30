@@ -10,7 +10,7 @@
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
-  color: #2585cf;
+  color: #c94b4b;
 }
 
 .popup-overlay {
@@ -32,7 +32,7 @@
 
 .loading-bar {
   display: block;
-  background-color: #2585cf;
+  background-color: #c94b4b;
   height: 24px;
 }
 

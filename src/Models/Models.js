@@ -4,7 +4,7 @@ const { PCA } = require('ml-pca');
 const runModel = (model, state) => {
   let dataset = [];
   if (state.images.length < 1) {
-    console.log('Must be populated')
+    alert("You must have at least one image!")
     return null
   }
   // dataset is an array of arrays of format [h, s, v]
@@ -30,7 +30,6 @@ const runModel = (model, state) => {
     // Project each image's existing HSV values into PCA space
     const pcaModel = pca.predict(dataset)
     modelOutput = pcaModel;
-    console.log('pcaModel', pcaModel);
 
   } 
 

@@ -11,7 +11,7 @@ img {
 }
 
 img:hover {
-  border: 8px solid #2585cf;
+  border: 8px solid #c94b4b;
   padding: 0px /* 8px - border width */
 }
 

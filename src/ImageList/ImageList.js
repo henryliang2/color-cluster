@@ -44,7 +44,7 @@ const ImageList = (props) => {
         <div className='title-container'>
 
           {/* ----- Images ----- */}
-          <h1>Images</h1>
+          <h1>Image Gallery</h1>
         </div>
 
         <FadeIn className='image-container' childTag={'span'}>
@@ -89,6 +89,8 @@ const ImageList = (props) => {
                   onRouteChange={ close }
                   maxFiles={30}
                   accept="image/*"
+                  minSize={0}
+                  maxSize={1048576}
                   inputContent={(files, extra) => (
                     extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
                   )}

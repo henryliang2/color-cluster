@@ -109,17 +109,15 @@ class Content extends Component {
           <div className='container' >
 
             <div className='welcome-text-container'>
-              <h2 className='welcome-text'>This app extracts the primary colors of your image gallery
-              and arranges them using machine-learning techniques.</h2>
-            </div>
+              <h2 className='welcome-text'>This tool extracts the dominant colors of your image gallery
+              and then sorts the images using machine-learning techniques.</h2>
 
-            <div className='button-list'>
-              <button onClick={this.useExampleImages}>Show me an example!</button>
-            </div>
-
-            <div className='column left-column'>
-              { /* ----- Demo Component ----- */ }
-              <Demonstration useExampleImages={this.useExampleImages}/>
+              <div className='button-list'>
+                <button className='welcome-button' 
+                  onClick={this.useExampleImages}>
+                  Show me an example!
+                </button>
+              </div>
             </div>
         
             <div className='column right-column'>
@@ -135,9 +133,6 @@ class Content extends Component {
                 state={this.state}
                 accept="image/*"
                 maxFiles={30}
-                inputContent={(files, extra) => (
-                  extra.reject ? 'Images Only' : 'Drop Images Here or Click to Browse'
-                )}
               />
               {/* 
               <div className='button-list'>
@@ -187,6 +182,11 @@ class Content extends Component {
               <ReactTooltip place="top" type="dark" effect="solid">
                 Add more images for<br />a more meaningful analysis!
               </ReactTooltip>
+
+              <div className='title-container'>
+                <h1>Choose an Analysis Method:</h1>
+              </div>
+
               <div className='button-list'>
                 <button 
                   onClick={() => { 

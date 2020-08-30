@@ -1,4 +1,4 @@
-/* Main Blue: #2585cf */
+/* Main Red: #c94b4b */
 
 /* Khula */
 @import url('https://fonts.googleapis.com/css2?family=Khula:wght@400;700&display=swap'); 
@@ -17,7 +17,7 @@ h1 {
   font-size: 32px;
   line-height: 32px;
   font-weight: 700;
-  color: #2585cf;
+  color: #c94b4b;
 }
 
 h2 {
@@ -25,7 +25,7 @@ h2 {
   font-size: 28px;
   line-height: 42px;
   font-weight: 400;
-  color: #777777;
+  color: white;
 }
 
 button {
@@ -34,7 +34,7 @@ button {
   font-size: 16px;
   color: white;
 
-  background-color: #2585cf;
+  background-color: #c94b4b;
   border: none;
   border-radius: 6px;
 
@@ -47,12 +47,22 @@ button {
   cursor: pointer;
 }
 
+
+.welcome-button {
+  background-color: white;
+  color: #c94b4b;
+}
+
+.welcome-button:hover {
+  background-color: #ccc;
+}
+
 button:hover {
-  background-color: #2f9bed;
+  background-color: #d96262;
 }
 
 button:active {
-  background-color: #67b2f0;
+  background-color: #de8181;
 }
 
 .App {
@@ -101,11 +111,16 @@ button:active {
 .welcome-text-container {
   text-align: center;
   width: 100%;
-  margin: 36px 0;
+  padding: 48px 0;
+  margin: 0;
+  background: #c94b4b;
+  background: -webkit-linear-gradient(to right, #c94b4b, #4b134f);
+  background: linear-gradient(to right, #c94b4b, #4b134f);
 }
 
 .welcome-text {
   margin: auto;
+  margin-bottom: 24px;
   max-width: 800px;
 }
 
