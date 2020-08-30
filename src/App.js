@@ -6,7 +6,6 @@ import ImageList            from './ImageList/ImageList'
 import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
-import Demonstration              from './Demonstration/Demonstration'
 import ReactTooltip         from 'react-tooltip';
 const Models = require('./Models/Models.js')
 const Clarifai  = require('clarifai')
