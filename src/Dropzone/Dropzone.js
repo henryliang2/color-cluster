@@ -55,7 +55,7 @@ const MyDropzone = (props) => {
           const clarifaiOutput = await props.runClarifaiModel(base64Str);
           const primaryColor = await getPrimaryColor(clarifaiOutput)
           await props.pushImageToState(
-            idx + 1, // id
+            props.state.images.length + idx + 1, // id
             `data:${file.file.type};base64, ${base64Str}`, // url
             primaryColor, // primaryColor
             1, // index //default
