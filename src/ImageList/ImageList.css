@@ -33,12 +33,13 @@
 .loading-bar {
   display: block;
   background-color: #c94b4b;
-  height: 24px;
+  height: 3px;
+  transition: all 1s ease;
 }
 
 .loading-bar-container {
   display: block;
   background-color: #ccc;
-  height: 24px;
+  height: 3px;
   width: 500px;
 }
