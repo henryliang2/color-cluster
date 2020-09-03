@@ -16,7 +16,7 @@ const ModelDescription = (props) => {
             of data while retaining the maximum amount of information possible. In 
             this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
             and Brightness (V) down to a single dimension. This allows comparison and sorting of 
-            the primary HSV values of images in one-dimensional space.`,
+            the primary H,S, and V values each image in one-dimensional space.`,
           creditUrl: 'https://stats.stackexchange.com/q/140579',
           creditTitle: '"Amoeba", stats.stackexchange.com'
         }
@@ -27,9 +27,10 @@ const ModelDescription = (props) => {
           a specified number (K) of clusters, with each cluster of data described by their 
           centroid (the "mean"). The algorithm accomplishes this by assigning each data point 
           to a cluster, determining where the centroid of that cluster should go, and then 
-          repeating this cycle again. In this way, the algorithm approaches the solution in 
-          an iterative matter. Because of the semi-random way the clusters are initialized, 
-          you may get a different result each time you run the algorithm!`,
+          repeating this process cyclically. In this way, the algorithm approaches the solution in 
+          an iterative manner. Because of the semi-random way the clusters are initialized, 
+          you may get a different result each time you run the algorithm! Try clicking the 'K-Means
+          Clustering' button again.`,
         creditUrl: 'https://commons.wikimedia.org/wiki/File:K-means_convergence.gif',
         creditTitle: 'Chire / CC BY-SA '
       }
