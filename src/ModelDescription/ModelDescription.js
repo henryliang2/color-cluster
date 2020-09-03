@@ -43,7 +43,7 @@ const ModelDescription = (props) => {
           <div className={`model-image model-image-${props.model}`}>
             <a href={ descObject.creditUrl }
               target='_blank'
-              rel='noopener noreferrer'>{ descObject.creditTitle }</a>
+              rel='noopener noreferrer'>{`source: ${descObject.creditTitle}`}</a>
           </div>
           <p className='model-description-text'>{ descObject.description }</p>
         </FadeIn>
