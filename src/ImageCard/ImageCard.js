@@ -8,7 +8,8 @@ const ImageCard = (props) => {
 
   return (
       <React.Fragment>
-        <img 
+        <img
+          className='image-card' 
           src={url} 
           id={"image" + id}
           alt={"image " + id}

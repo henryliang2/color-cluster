@@ -50,9 +50,8 @@ const ImageList = (props) => {
         <FadeIn className='image-container' childTag={'span'}>
           { 
             images.map( (image, i) => {
-              return <React.Fragment> 
+              return <React.Fragment key={i}> 
                     <ImageCard 
-                      key={i}
                       id={image.id}
                       url={image.url}
                       dimension='160'

@@ -8,20 +8,31 @@ const ModelDescription = (props) => {
   if (props.model !==  'pca' && props.model !== 'kmeans') {
     return ''
   } else {
-    const description = props.model === 'pca'
 
-      ? `Principal Component Analysis (PCA) is a technique that reduces the dimensionality 
-      of data while retaining the maximum amount of information possible. In 
-      this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
-      and Brightness (V) down to a single dimension. This allows comparison and sorting of 
-      the primary HSV values of images in one-dimensional space.`
+    const descObject = (props.model === 'pca')
 
-      : `K-Means Clustering is an algorithm that attempts to accurately group the data into 
-      a specified number (K) of clusters, with cluster of data described by a centroid 
-      (the "mean"). This is accomplished by initializing the centroids, grouping
-      the data points based on those centroids, and then cyclically re-assigning centroids
-      based on the current clusters. Because of the semi-random way the clusters are 
-      initialized, you may get a different result each time you run the algorithm!`
+      ? { 
+          description: `Principal Component Analysis (PCA) is a technique that reduces the dimensionality 
+            of data while retaining the maximum amount of information possible. In 
+            this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
+            and Brightness (V) down to a single dimension. This allows comparison and sorting of 
+            the primary HSV values of images in one-dimensional space.`,
+          creditUrl: 'https://stats.stackexchange.com/q/140579',
+          creditTitle: '"Amoeba", stats.stackexchange.com'
+        }
+      
+      : 
+      {
+        description: `K-Means Clustering is an algorithm that attempts to accurately group the data into 
+          a specified number (K) of clusters, with each cluster of data described by their 
+          centroid (the "mean"). The algorithm accomplishes this by assigning each data point 
+          to a cluster, determining where the centroid of that cluster should go, and then 
+          repeating this cycle again. In this way, the algorithm approaches the solution in 
+          an iterative matter. Because of the semi-random way the clusters are initialized, 
+          you may get a different result each time you run the algorithm!`,
+        creditUrl: 'https://commons.wikimedia.org/wiki/File:K-means_convergence.gif',
+        creditTitle: 'Chire / CC BY-SA '
+      }
 
     return (
       <React.Fragment>
@@ -29,7 +40,12 @@ const ModelDescription = (props) => {
           <h1>Description</h1>
         </div>
         <FadeIn>
-          <p className='model-description-text'>{ description }</p>
+          <div className={`model-image model-image-${props.model}`}>
+            <a href={ descObject.creditUrl }
+              target='_blank'
+              rel='noopener noreferrer'>{ descObject.creditTitle }</a>
+          </div>
+          <p className='model-description-text'>{ descObject.description }</p>
         </FadeIn>
       </React.Fragment>
     );

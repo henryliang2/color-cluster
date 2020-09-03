@@ -5,3 +5,32 @@
   line-height: 24px;
   color: #555;
 }
+
+.model-image {
+  width: '100%';
+  height: 240px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 18px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.model-image > a {
+  align-self: flex-end;
+  color: #aaa;
+}
+
+.model-image > a:hover { 
+  color: #888;
+}
+
+.model-image-pca { 
+  background-image: url('/pca.gif');
+}
+
+.model-image-kmeans { 
+  background-image: url('/kmeans.gif');
+}
