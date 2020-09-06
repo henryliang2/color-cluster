@@ -39,7 +39,10 @@ const MyDropzone = (props) => {
         
         let arrayString = '';
         try {
-          arrayString = String.fromCharCode(...new Uint8Array(reader.result))
+          const array = new Uint8Array(reader.result);
+          for (const bytes of array) {
+            arrayString += String.fromCharCode(bytes)
+          }
         } catch(err) {
           console.log(err);
           expectedImages -= 1;
@@ -64,7 +67,8 @@ const MyDropzone = (props) => {
         submitImage();
       }
       // Compress image before loading it into state
-      reader.readAsArrayBuffer(file.file);
+      compressImage(file.file)
+      .then(output => reader.readAsArrayBuffer(output));
       file.remove()
     })
     props.onRouteChange();
