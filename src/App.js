@@ -183,7 +183,7 @@ class Content extends Component {
               </ReactTooltip>
 
               <div className='title-container'>
-                <h1>Choose an Analysis Method:</h1>
+                <h1>Choose a Sorting Method:</h1>
               </div>
 
               <div className='button-list'>

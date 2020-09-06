@@ -16,7 +16,7 @@ const ModelDescription = (props) => {
             of data while retaining the maximum amount of information possible. In 
             this case, the model reduces the three color dimensions of Hue (H), Saturation (S), 
             and Brightness (V) down to a single dimension. This allows comparison and sorting of 
-            the primary H,S, and V values each image in one-dimensional space.`,
+            the primary H, S, and V values each image in one-dimensional space.`,
           creditUrl: 'https://stats.stackexchange.com/q/140579',
           creditTitle: '"Amoeba", stats.stackexchange.com'
         }

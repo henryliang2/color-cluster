@@ -64,8 +64,7 @@ const MyDropzone = (props) => {
         submitImage();
       }
       // Compress image before loading it into state
-      compressImage(file.file, 500)
-      .then(output => { reader.readAsArrayBuffer(output)});
+      reader.readAsArrayBuffer(file.file);
       file.remove()
     })
     props.onRouteChange();
