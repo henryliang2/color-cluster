@@ -86,9 +86,8 @@ const Graphs = (props) => {
           },
           margin: { l:36, r:36, t:36, b:36 },
           width: width,
-          height: (model === 'pca')
-            ? 240
-            : height
+          height: (model === 'pca') ? 240 : height,
+          showlegend: false
         }
     
         Plotly.react('graph-output', traceData, layout, { displayModeBar: false });

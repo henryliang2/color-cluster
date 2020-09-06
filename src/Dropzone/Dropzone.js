@@ -37,38 +37,40 @@ const MyDropzone = (props) => {
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
         
-        let arrayString = '';
         try {
-          const array = new Uint8Array(reader.result);
-          for (const bytes of array) {
-            arrayString += String.fromCharCode(bytes)
+
+          const dataUrl = reader.result;
+          const base64str = dataUrl.split(',')[1];
+
+          const submitImage = async () => {
+            if (props.state.images.length >= 30) {
+              return null 
+            }
+            const clarifaiOutput = await props.runClarifaiModel(base64str);
+            const primaryColor = await getPrimaryColor(clarifaiOutput)
+            await props.pushImageToState(
+              props.state.images.length + idx + 1, // id
+              dataUrl, // url //
+              primaryColor, // primaryColor
+              1, // index //default
+            )
           }
-        } catch(err) {
-          console.log(err);
+
+          submitImage();
+
+        } catch(e) {
+
+          console.log(e);
           expectedImages -= 1;
           props.setExpectedImages(expectedImages)
           return null
+
         }
-        
-        let base64Str = btoa(arrayString);
-        const submitImage = async () => {
-          if (props.state.images.length >= 30) {
-            return null 
-           }
-          const clarifaiOutput = await props.runClarifaiModel(base64Str);
-          const primaryColor = await getPrimaryColor(clarifaiOutput)
-          await props.pushImageToState(
-            props.state.images.length + idx + 1, // id
-            `data:${file.file.type};base64, ${base64Str}`, // url
-            primaryColor, // primaryColor
-            1, // index //default
-          )
-        }
-        submitImage();
+
       }
       // Compress image before loading it into state
       compressImage(file.file)
-      .then(output => reader.readAsArrayBuffer(output));
+      .then(output => reader.readAsDataURL(output));
       file.remove()
     })
     props.onRouteChange();

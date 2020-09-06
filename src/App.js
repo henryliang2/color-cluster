@@ -100,6 +100,18 @@ class Content extends Component {
       : this.setState({ route: 'input' })
   }
 
+  getGraphSize = (axis) => {
+    if (axis === 'width') {
+      return (
+        window.innerWidth < 600 
+        ? window.innerWidth - 60 
+        : 560
+      )
+    } else if (axis === 'height') { 
+      return 420
+    }
+  }
+
   render() {
     /* ----- Input Route ----- */
     if (this.state.route === 'input') {
@@ -172,8 +184,8 @@ class Content extends Component {
               { /* ----- Graphs Component ----- */ }
               <Graphs 
                 state={this.state}
-                width='560'
-                height='420'
+                width={ this.getGraphSize('width') }
+                height={ this.getGraphSize('height')  }
                 returnGraphsOnly={false}
                 />
 
