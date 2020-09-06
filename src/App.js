@@ -17,19 +17,6 @@ const clarifaiApp = new Clarifai.App({
 });
 
 class App extends Component {
-
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <Content />
-        <Footer />
-      </React.Fragment>
-    )
-  }
-}
-
-class Content extends Component {
   constructor(){
     super();
     this.state = { 
@@ -115,8 +102,13 @@ class Content extends Component {
   render() {
     /* ----- Input Route ----- */
     if (this.state.route === 'input') {
+
       return (
         <React.Fragment>
+
+          {/* ----- Header ----- */}
+          <Header resetState={this.resetState}/>
+
           <div className='container' >
 
             <div className='welcome-text-container'>
@@ -153,6 +145,10 @@ class Content extends Component {
 
             </div>
           </div>
+
+          {/* ----- Footer ----- */}
+          <Footer />
+
         </React.Fragment>
       );
     }
@@ -161,6 +157,10 @@ class Content extends Component {
     else if (this.state.route === 'analysis') {
       return (
         <React.Fragment>
+
+          {/* ----- Header ----- */}
+          <Header resetState={this.resetState}/>
+
           <div className='container'>
 
             { /* ----- Left Column ----- */ }
@@ -231,6 +231,10 @@ class Content extends Component {
 
             </div>
           </div>
+
+          {/* ----- Footer ----- */}
+          <Footer />
+
         </React.Fragment>
       )
     }
