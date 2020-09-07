@@ -51,6 +51,12 @@ class App extends Component {
         index, // analyzed index of HSV color (reduced to one single dimension)
       }]
     }));
+
+    if (this.state.model === 'pca' || this.state.model == 'kmeans') {
+      console.log(this.state.model);
+      this.setState((Models.runModel(this.state.model, this.state)))
+    }
+
   }
 
   setExpectedImages = (num) => {
