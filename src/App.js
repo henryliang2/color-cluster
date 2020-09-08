@@ -52,7 +52,7 @@ class App extends Component {
       }]
     }));
 
-    if (this.state.model === 'pca' || this.state.model == 'kmeans') {
+    if (this.state.model === 'pca' || this.state.model === 'kmeans') {
       console.log(this.state.model);
       this.setState((Models.runModel(this.state.model, this.state)))
     }
@@ -143,11 +143,6 @@ class App extends Component {
                 accept="image/*"
                 maxFiles={30}
               />
-              {/* 
-              <div className='button-list'>
-                <button onClick={this.onRouteChange}>Analysis Page</button>
-              </div>
-              */}
 
             </div>
           </div>
@@ -196,41 +191,39 @@ class App extends Component {
                 />
 
               { /* ----- Analysis Buttons ----- */ }
-              <ReactTooltip place="top" type="dark" effect="solid">
-                Add more images for<br />a more meaningful analysis!
-              </ReactTooltip>
+              { (this.state.expectedImages === this.state.images.length) &&
+                <React.Fragment>
+                  <ReactTooltip place="top" type="dark" effect="solid">
+                    Add more images for<br />a more meaningful analysis!
+                  </ReactTooltip>
 
-              <div className='title-container'>
-                <h1>Choose a Sorting Method:</h1>
-              </div>
+                  <div className='title-container'>
+                    <h1>Choose a Sorting Method:</h1>
+                  </div>
 
-              <div className='button-list'>
-                <button 
-                  onClick={() => { 
-                    this.setState(Models.runModel('pca', this.state)) 
-                  }}
-                  data-tip='React-tooltip'
-                  data-tip-disable={this.state.images.length > 4 && true
-                  }> 
-                    Principal Component Analysis
-                </button>
-                
-                <button 
-                  onClick={() => { 
-                    this.setState(Models.runModel('kmeans', this.state)) 
-                  }}
-                  data-tip='React-tooltip'
-                  data-tip-disable={this.state.images.length > 4 && true
-                  }> 
-                    K-Means Clustering
-                </button>
-              </div>
-
-              {/* 
-              <div className='button-list'>
-                <button onClick={this.getState}>Log State</button>
-              </div>
-              */}
+                  <div className='button-list'>
+                    <button 
+                      onClick={() => { 
+                        this.setState(Models.runModel('pca', this.state)) 
+                      }}
+                      data-tip='React-tooltip'
+                      data-tip-disable={this.state.images.length > 4 && true
+                      }> 
+                        Principal Component Analysis
+                    </button>
+                    
+                    <button 
+                      onClick={() => { 
+                        this.setState(Models.runModel('kmeans', this.state)) 
+                      }}
+                      data-tip='React-tooltip'
+                      data-tip-disable={this.state.images.length > 4 && true
+                      }> 
+                        K-Means Clustering
+                    </button>
+                  </div>
+                </React.Fragment>
+              }
 
               { /* ----- ModelDescription Component ----- */ }
               <ModelDescription model={this.state.model}/>
