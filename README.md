@@ -1,7 +1,7 @@
 ## Color Cluster
 This tool extracts the dominant colors of your image gallery and then sorts the images using machine-learning techniques. 
   
-App hosted at [https://color-cluster.netlify.app][https://color-cluster.netlify.app/)
+App hosted at [https://color-cluster.netlify.app/](https://color-cluster.netlify.app)
 
 The app currently limits the number of images you can upload to 30 images per analysis.
 
