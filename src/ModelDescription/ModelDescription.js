@@ -29,8 +29,8 @@ const ModelDescription = (props) => {
           to a cluster, determining where the centroid of that cluster should go, and then 
           repeating this process cyclically. In this way, the algorithm approaches the solution in 
           an iterative manner. Because of the semi-random way the clusters are initialized, 
-          you may get a different result each time you run the algorithm! Try clicking the 'K-Means
-          Clustering' button again.`,
+          you may get a different result each time you run the algorithm. Try clicking the button
+          to run the analysis again!`,
         creditUrl: 'https://commons.wikimedia.org/wiki/File:K-means_convergence.gif',
         creditTitle: 'Chire / CC BY-SA '
       }
