@@ -1,7 +1,7 @@
 ## Color Cluster
 This tool extracts the dominant colors of your image gallery and then sorts the images using machine-learning techniques. 
   
-App hosted at [https://color-cluster.netlify.app](https://color-cluster.netlify.app/)
+App hosted at [https://color-cluster.netlify.app][https://color-cluster.netlify.app/)
 
 The app currently limits the number of images you can upload to 30 images per analysis.
 
@@ -9,10 +9,10 @@ The app currently limits the number of images you can upload to 30 images per an
 ![](public/demo.gif)
 
 ## External Resources Used
-API: [https://www.clarifai.com/](clarifai API)  
-Color Space Conversion: [https://www.npmjs.com/package/tinycolor2](tinycolor2)  
-ML Models: [https://www.npmjs.com/package/skmeans](skmeans), [https://github.com/mljs/pca](ml-js/pca)  
-Graphs: [https://github.com/plotly/plotly.js/](plotly.js)  
-Image Upload: [https://www.npmjs.com/package/react-dropzone-uploader](react-dropzone-uploader)  
-Image Compression: [https://www.npmjs.com/package/browser-image-compression](browser-image-compression)  
-UI: [https://www.npmjs.com/package/reactjs-popup](reactjs-popup), [https://www.npmjs.com/package/react-fade-in](react-fade-in), [https://www.npmjs.com/package/react-tooltip](react-tooltip)
+API: [clarifai API](https://www.clarifai.com)  
+Color Space Conversion: [tinycolor2](https://www.npmjs.com/package/tinycolor2)  
+ML Models: [skmeans](https://www.npmjs.com/package/skmeans), [ml-js/pca](https://github.com/mljs/pca)  
+Graphs: [plotly.js](https://github.com/plotly/plotly.js/)  
+Image Upload: [react-dropzone-uploader](https://www.npmjs.com/package/react-dropzone-uploader)  
+Image Compression: [browser-image-compression](https://www.npmjs.com/package/browser-image-compression)  
+UI: [reactjs-popup](https://www.npmjs.com/package/reactjs-popup), [react-fade-in](https://www.npmjs.com/package/react-fade-in), [react-tooltip](https://www.npmjs.com/package/react-tooltip)

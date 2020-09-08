@@ -2,6 +2,7 @@
 
 #dummy variables
 /src/DummyVariables.js
+/examples
 
 # dependencies
 /node_modules
