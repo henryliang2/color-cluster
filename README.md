@@ -1,7 +1,7 @@
 ## Color Cluster
-This tool extracts the dominant colors of your image gallery and then sorts 
-the images using machine-learning techniques. The idea originated as a tool
-that could learn to arrange your photos into a pleasing format for Instagram.   
+This tool extracts the dominant colors of your image gallery and then sorts the images  
+using machine-learning techniques. The idea originated as a tool that could learn to  
+arrange your photos into a pleasing format for Instagram.   
   
 App hosted at [https://color-cluster.netlify.app/](https://color-cluster.netlify.app)
 
