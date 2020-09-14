@@ -7,7 +7,7 @@ import MyDropzone           from './Dropzone/Dropzone'
 import Graphs               from './Graphs/Graphs'
 import ModelDescription     from './ModelDescription/ModelDescription'
 import ReactTooltip         from 'react-tooltip';
-const Models = require('./Models/Models.js')
+import { Models }           from './Models/Models'
 const Clarifai  = require('clarifai')
 const tinycolor = require('tinycolor2')
 const examples = require('./examples.json')
@@ -105,14 +105,12 @@ class App extends Component {
     }
   }
 
-  render() {
-    /* ----- Input Route ----- */
-    if (this.state.route === 'input') {
-
+  DisplayInputRoute = () => {
       return (
         <React.Fragment>
 
-          {/* ----- Header ----- */}
+          {// ----- Header ----- 
+          }
           <Header resetState={this.resetState}/>
 
           <div className='container' >
@@ -131,7 +129,8 @@ class App extends Component {
         
             <div className='column right-column'>
 
-              { /* ----- Dropzone Component ----- */ }
+              { // ----- Dropzone Component -----  
+              }
               <MyDropzone 
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
@@ -147,27 +146,26 @@ class App extends Component {
             </div>
           </div>
 
-          {/* ----- Footer ----- */}
+          {// ----- Footer ----- 
+          }
           <Footer />
 
         </React.Fragment>
       );
-    }
+  }
 
-    /* ----- Analysis Route ----- */
-    else if (this.state.route === 'analysis') {
-      return (
+  DisplayAnalysisRoute = () => {
+    return (
         <React.Fragment>
-
-          {/* ----- Header ----- */}
+          {// ----- Header ----- 
+          }
           <Header resetState={this.resetState}/>
 
           <div className='container'>
-
-            { /* ----- Left Column ----- */ }
             <div className='column left-column'>
 
-              { /* ----- ImageList Componenet ----- */}
+              { // ----- ImageList Componenet ----- 
+              }
               <ImageList 
                 runClarifaiModel={this.runClarifaiModel}
                 pushImageToState={this.pushImageToState}
@@ -178,20 +176,19 @@ class App extends Component {
                 state={this.state}
                 />
             </div>
-
-            { /* ----- Right Column ----- */ }
             <div className='column right-column'>
 
-              { /* ----- Graphs Component ----- */ }
+              { // ----- Graphs Component -----  
+              }
               <Graphs 
                 state={this.state}
                 width={ this.getGraphSize('width') }
-                height={ this.getGraphSize('height')  }
-                returnGraphsOnly={false}
+                height={ this.getGraphSize('height') }
                 />
 
-              { /* ----- Analysis Buttons ----- */ }
-              { (this.state.expectedImages === this.state.images.length) &&
+              { // ----- Analysis Buttons -----
+                // Display only if all images are loaded (ie. expectedImages = images.length)
+                (this.state.expectedImages === this.state.images.length) &&
                 <React.Fragment>
                   <ReactTooltip place="top" type="dark" effect="solid">
                     Add more images for<br />a more meaningful analysis!
@@ -203,22 +200,18 @@ class App extends Component {
 
                   <div className='button-list'>
                     <button 
-                      onClick={() => { 
-                        this.setState(Models.runModel('pca', this.state)) 
-                      }}
+                      onClick={() => { this.setState(Models.runModel('pca', this.state)) }}
                       data-tip='React-tooltip'
-                      data-tip-disable={this.state.images.length > 4 && true
-                      }> 
+                      data-tip-disable={this.state.images.length > 4 && true }
+                      > 
                         Principal Component Analysis
                     </button>
                     
                     <button 
-                      onClick={() => { 
-                        this.setState(Models.runModel('kmeans', this.state)) 
-                      }}
+                      onClick={() => { this.setState(Models.runModel('kmeans', this.state)) }}
                       data-tip='React-tooltip'
-                      data-tip-disable={this.state.images.length > 4 && true
-                      }> 
+                      data-tip-disable={this.state.images.length > 4 && true }
+                      > 
                         K-Means Clustering
                     </button>
                   </div>
@@ -235,7 +228,19 @@ class App extends Component {
           <Footer />
 
         </React.Fragment>
-      )
+    );
+  }
+
+  render() {
+    // ----- Input Route ------
+    //
+    if (this.state.route === 'input') {
+      return <this.DisplayInputRoute />
+    }
+
+    // ----- Analysis Route ----- 
+    else if (this.state.route === 'analysis') {
+      return <this.DisplayAnalysisRoute />
     }
   }
 }

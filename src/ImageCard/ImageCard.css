@@ -11,7 +11,6 @@
 }
 
 .image-card:hover {
-  border: 8px solid #c94b4b;
   padding: 0px /* 8px - border width */
 }
 

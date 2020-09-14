@@ -89,4 +89,8 @@ const runModel = (model, state) => {
   }
 }
 
-module.exports = { runModel };
+const Models = {
+  runModel: runModel
+}
+
+export { Models };
